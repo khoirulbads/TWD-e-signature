@@ -64,12 +64,16 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'message' => 'Login success',
-            'access_token' => $token,
-            'token_type' => 'Bearer'
-        ]);
+        return redirect('/dashboard');    
+       
     }
+
+    public function logout()
+    {
+        Auth::user()->tokens()->delete();
+        return redirect('/auth/login');    
+    }
+
 
 
 }
