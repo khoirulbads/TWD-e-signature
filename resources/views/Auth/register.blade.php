@@ -98,7 +98,7 @@
                     </div>
                     @endif
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
+                      <button class="btn btn-primary w-100" type="submit">Register</button>
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">Already have account? <a href="/auth/login">Login with your account</a></p>
