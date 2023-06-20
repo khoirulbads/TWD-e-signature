@@ -49,4 +49,27 @@ class AuthController extends Controller
                     menggunakan email dan password anda ');
     }
 
+    public function loginAction(Request $request)
+    {   
+        $checkEmail = User::where('email', $request->email)->first();
+        if (!$checkEmail) {
+            return redirect('/auth/login')->withErrors(['msg' => 'Email tidak terdaftar']);
+        }
+
+        if (! Auth::attempt($request->only('email', 'password'))) {
+            return redirect('/auth/login')->withErrors(['msg' => 'Password tidak sesuai']);    
+        }
+
+        $user = User::where('email', $request->email)->firstOrFail();
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'message' => 'Login success',
+            'access_token' => $token,
+            'token_type' => 'Bearer'
+        ]);
+    }
+
+
 }
