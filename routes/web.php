@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SubmissionsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,4 +29,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/logout', [AuthController::class, 'logout']);
 
     Route::get('/dashboard', [DashboardController::class, 'index']);
+
+    Route::group(['prefix' => 'signee', 'as' => 'signee.'], function () {
+        Route::group(['prefix' => 'submissions', 'as' => 'submissions.'], function () {
+            Route::get('/', [SubmissionsController::class, 'signeeIndex']);    
+            Route::post('/', [SubmissionsController::class, 'signeeCreate']);    
+        });
+    });
+
 });

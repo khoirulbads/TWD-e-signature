@@ -118,6 +118,20 @@
         </a>
       </li><!-- End Dashboard Nav -->
     
+      @if(Auth::user()->role == 1)
+      @endif
+
+      @if(Auth::user()->role == 2)
+      @endif
+
+      @if(Auth::user()->role == 3)
+      <li class="nav-item">
+        <a class="nav-link" href="/signee/submissions">
+          <i class="bi bi-clipboard-check"></i>
+          <span>Pengajuan Berkas</span>
+        </a>
+      </li>
+      @endif
     </ul>
   </aside>
 
