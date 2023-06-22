@@ -15,7 +15,8 @@ use App\Models\DocumentsModel;
 class SubmissionsController extends Controller
 {
     public function signeeIndex(){
-        $data = SubmissionsModel::where('signee_id', Auth::user()->id)
+        $data = SubmissionsModel::withCount('documents')
+            ->where('signee_id', Auth::user()->id)
             ->orderBy('updated_at', 'DESC')->get();
         return view('Dashboard.Signee.submission', compact('data'));
     }
@@ -49,6 +50,42 @@ class SubmissionsController extends Controller
         $data->save();
         $docs->save();
 
-        return redirect('/signee/submissions')->with('msg', 'Pengajuan Berkas Berhasil');
+        return redirect('/signee/submissions')->with('success', 'Pengajuan Berkas Berhasil');
+    }
+
+    public function signeeUpdate(Request $request, $id){
+        $data = SubmissionsModel::where('id', $id)->first();
+        
+        $data->title = $request->title;
+        $data->description = $request->description;
+        $data->updated_at = Carbon::now();
+        
+        if ($request->hasFile('document')){
+            DocumentsModel::where('submission_id', $id)->delete();
+            $docs = new DocumentsModel();
+            $docs->id = Uuid::uuid4();
+            $docs->submission_id = $data->id;
+            $docs->unique = $docs->id.Uuid::uuid4().$data->id; 
+        
+            $path = $request->file('document')->store('assets/docs', ['disk' => 'my_files']);
+            
+            $docs->file_name = $path;
+            $docs->file_mime = '.pdf';
+            $docs->file_path = $path;
+            $docs->status = 1;
+
+            $docs->save();
+        }
+        $data->save();
+
+        return redirect('/signee/submissions')->with('warning', 'Pengajuan Berkas telah diupdate!');
+    
+    }
+
+    public function signeeDelete($id){
+        $data = SubmissionsModel::where('id', $id)->delete();
+        $docs = DocumentsModel::where('submission_id', $id)->delete();
+   
+        return redirect('/signee/submissions')->with('danger', 'Pengajuan Berkas telah dihapus!');
     }
 }

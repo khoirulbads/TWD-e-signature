@@ -40,7 +40,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::group(['prefix' => 'signee', 'as' => 'signee.'], function () {
         Route::group(['prefix' => 'submissions', 'as' => 'submissions.'], function () {
             Route::get('/', [SubmissionsController::class, 'signeeIndex']);    
-            Route::post('/', [SubmissionsController::class, 'signeeCreate']);    
+            Route::post('/', [SubmissionsController::class, 'signeeCreate']);
+            Route::get('/delete/{id}', [SubmissionsController::class, 'signeeDelete']);   
+            Route::post('/update/{id}', [SubmissionsController::class, 'signeeUpdate']);        
         });
     });
 

@@ -14,4 +14,8 @@ class SubmissionsModel extends Model
     public $incrementing = false; 
     protected $table = 'submissions'; 
 
+    public function documents()
+    {
+        return $this->hasMany('App\Models\DocumentsModel', 'submission_id', 'id');
+    }
 }
