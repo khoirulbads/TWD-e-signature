@@ -18,4 +18,9 @@ class SubmissionsModel extends Model
     {
         return $this->hasMany('App\Models\DocumentsModel', 'submission_id', 'id');
     }
+    
+    public function signee()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'signee_id');
+    }
 }

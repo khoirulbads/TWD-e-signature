@@ -12,7 +12,7 @@ use Ramsey\Uuid\Uuid;
 class AuthController extends Controller
 {
     public function login(){
-        if (Auth::user()) {
+        if (count(Auth::user()->tokens) == 0) {
             return redirect('/dashboard');
         }
         return view('Auth.login');
@@ -23,7 +23,7 @@ class AuthController extends Controller
     }
 
     public function register(){
-        if (Auth::user()) {
+        if (count(Auth::user()->tokens) == 0) {
             return redirect('/dashboard');
         }
         return view('Auth.register');

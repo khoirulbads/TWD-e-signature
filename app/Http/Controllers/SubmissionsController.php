@@ -82,10 +82,22 @@ class SubmissionsController extends Controller
     
     }
 
+
     public function signeeDelete($id){
         $data = SubmissionsModel::where('id', $id)->delete();
         $docs = DocumentsModel::where('submission_id', $id)->delete();
    
         return redirect('/signee/submissions')->with('danger', 'Pengajuan Berkas telah dihapus!');
+    }
+
+    public function Detail($id){
+        $data = SubmissionsModel::with('signee', 'documents')
+            ->where('id', $id)->first();
+        
+        if (Auth::user()->role == 3) {
+            return view('Dashboard.Signee.detail', compact('data'));
+        }
+        return redirect('/signee/submissions')->with('warning', 'Pengajuan Berkas telah diupdate!');
+    
     }
 }
