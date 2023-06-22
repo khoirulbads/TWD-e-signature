@@ -12,10 +12,20 @@ use Ramsey\Uuid\Uuid;
 class AuthController extends Controller
 {
     public function login(){
+        if (Auth::user()) {
+            return redirect('/dashboard');
+        }
         return view('Auth.login');
+    }
+    
+    public function loginRedirect(){
+        return redirect('/auth/login');
     }
 
     public function register(){
+        if (Auth::user()) {
+            return redirect('/dashboard');
+        }
         return view('Auth.register');
     }
     

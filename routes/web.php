@@ -19,6 +19,13 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/login',
+    ['as' => 'login',
+     'uses' =>  function () {
+        return redirect('/auth/login');
+        }
+    ]);
+
 Route::get('/auth/login', [AuthController::class, 'login']);
 Route::get('/auth/register', [AuthController::class, 'register']);
 
