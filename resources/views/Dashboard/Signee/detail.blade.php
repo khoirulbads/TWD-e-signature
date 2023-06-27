@@ -111,17 +111,18 @@
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Berkas #v{{$i}}   
-                    @if($data->status == 1)
+                      Berkas #v{{$i++}}
+
+                    @if($docs->status == 1)
                     <span class="badge bg-warning">pending</span>
                     @endif
-                    @if($data->status == 2)
+                    @if($docs->status == 2)
                     <span class="badge bg-success">disetujui</span>
                     @endif
-                    @if($data->status == 3)
+                    @if($docs->status == 3)
                     <span class="badge bg-danger">ditolak</span>
                     @endif
-                    @if($data->status == 4)
+                    @if($docs->status == 4)
                     <span class="badge bg-secondary">dibatalkan</span>
                     @endif
                     </button>
@@ -154,6 +155,14 @@
                   </a>
                 </div>
                 @endif
+                @if(Auth::user()->role == 3 && $data->status == 3)
+                <div class="d-grid gap-2 mt-3">
+                  <a data-bs-toggle="modal" data-bs-target="#reuploadModal" class="btn btn-success" >
+                    <i class="bi bi-upload"></i>
+                    Re-Upload Berkas
+                  </a> 
+                </div>
+                @endif
                 
               </div><!-- End Default Accordion Example -->
             <!-- Modal -->
@@ -171,6 +180,35 @@
                   <div class="form-floating">
                     <textarea class="form-control" placeholder="Proposal Keuangan tahun 2020" id="floatingTextarea" style="height: 100px;" name="notes"></textarea>
                     <label for="floatingTextarea">Notes</label>
+                  </div>
+                </div>
+                <div>
+                  <button type="submit" class="btn btn-primary" >Save</button>
+                  <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+              </form><!-- End floating Labels Form -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="reuploadModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Re-Upload Berkas</h5>
+
+              <!-- Floating Labels Form -->
+              <form class="row g-3" method="POST" action="/signee/submissions/reupload/{{$data->id}}" enctype="multipart/form-data">
+              {!! csrf_field() !!}
+                <div class="col-12">
+                <div class="form-floating">
+                    <input type="file" class="form-control" id="floatingName" accept=".pdf" placeholder="Berkas" name="document" >
+                    <p style="color: orange; font-size: 10px">File harus format .pdf</p>
+                    <label for="floatingName">Upload Berkas</label>
                   </div>
                 </div>
                 <div>

@@ -44,6 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/', [SubmissionsController::class, 'signeeCreate']);
             Route::get('/delete/{id}', [SubmissionsController::class, 'signeeDelete']);   
             Route::post('/update/{id}', [SubmissionsController::class, 'signeeUpdate']);        
+            Route::post('/reupload/{id}', [SubmissionsController::class, 'signeeReupload']);   
         });
     });
 

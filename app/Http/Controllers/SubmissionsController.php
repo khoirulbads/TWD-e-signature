@@ -81,7 +81,29 @@ class SubmissionsController extends Controller
         return redirect('/signee/submissions')->with('warning', 'Pengajuan Berkas telah diupdate!');
     
     }
+    
+    public function signeeReupload(Request $request, $id){
+        $data = SubmissionsModel::where('id', $id)->first(); 
+        $data->updated_at = Carbon::now();
+        $data->status = 1;
+        
+        if ($request->hasFile('document')){
+            $docs = new DocumentsModel();
+            $docs->id = Uuid::uuid4();
+            $docs->submission_id = $data->id;
+            $docs->unique = $docs->id.Uuid::uuid4().$data->id;         
+            $path = $request->file('document')->store('assets/docs', ['disk' => 'my_files']);
+            $docs->file_name = $path;
+            $docs->file_mime = '.pdf';
+            $docs->file_path = $path;
+            $docs->status = 1;
+            $docs->save();
+        }
+        $data->save();
 
+        return redirect('/signee/submissions/'.$id)->with('success', 'Berhasil upload berkas terbaru');
+    
+    }
 
     public function signeeDelete($id){
         $data = SubmissionsModel::where('id', $id)->delete();
