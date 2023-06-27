@@ -26,7 +26,7 @@ class SubmissionsController extends Controller
         $docs = new DocumentsModel();
 
         $data->id = Uuid::uuid4();
-        $data->signee_id = Auth::user()->id;
+        $data->signee_id = Auth::user()->unique_id;
         $data->title = $request->title;
         $data->description = $request->description;
         $data->created_at = Carbon::now();
@@ -118,11 +118,11 @@ class SubmissionsController extends Controller
     public function signerIndex(Request $request){
         $data = SubmissionsModel::withCount('documents', 'signee');
 
-        if ($request->q_status = '1') {
-            $data = $data->where('status', 1)->orWhere('status',3);
+        if ($request->q_status == 1) {
+            $data = $data->whereIn('status', [1,3]);
         }
-        if ($request->q_status = '2') {
-            $data = $data->where('status', 2)->orWhere('status',4);
+        if ($request->q_status == 2) {
+            $data = $data->whereIn('status', [2,4]);
         }
         $data = $data->orderBy('updated_at', 'DESC')->get();
         return view('Dashboard.Signer.submission-pengajuan', compact('data'));

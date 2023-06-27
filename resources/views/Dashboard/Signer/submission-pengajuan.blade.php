@@ -47,6 +47,7 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Signee</th>
                     <th scope="col">Berkas</th>
                     <th scope="col">Tgl Pengajuan</th>
                     <th scope="col">Status</th>
@@ -60,6 +61,7 @@
                   @foreach($data as $datas)
                   <tr>
                     <th scope="row">{{$i++}}</th>
+                    <td>{{$datas->signee->name}}</td>
                     <td>{{$datas->title}}</td>
                     <td>{{$datas->created_at}}</td>
                     @if($datas->status == 1)
@@ -102,92 +104,5 @@
         </div>
       </div>
     </section>
-<!-- Modal -->
-    <div class="modal fade" id="addModal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-           <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Tambah Pengajuan</h5>
-
-              <!-- Floating Labels Form -->
-              <form class="row g-3" method="POST" action="/signee/submissions" enctype="multipart/form-data">
-              {!! csrf_field() !!}
-                <div class="col-md-12">
-                  <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingName" placeholder="Proposal Keuangan" name="title" required="">
-                    <label for="floatingName">Judul Berkas</label>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="form-floating">
-                    <textarea class="form-control" placeholder="Proposal Keuangan tahun 2020" id="floatingTextarea" style="height: 100px;" name="description"></textarea>
-                    <label for="floatingTextarea">Deskripsi</label>
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="form-floating">
-                    <input type="file" class="form-control" id="floatingName" accept=".pdf" placeholder="Berkas" name="document" required="">
-                    <p style="color: orange; font-size: 10px">File harus format .pdf</p>
-                    <label for="floatingName">Upload Berkas</label>
-                  </div>
-                </div>
-                <div>
-                  <button type="submit" class="btn btn-primary" >Save</button>
-                  <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                </div>
-              </form><!-- End floating Labels Form -->
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    @foreach ($data as $datas)
-    <div class="modal fade" id="editModal{{$datas->id}}" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-           <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Edit Pengajuan</h5>
-
-              <!-- Floating Labels Form -->
-              <form class="row g-3" method="POST" action="/signee/submissions/update/{{$datas->id}}" enctype="multipart/form-data">
-              {!! csrf_field() !!}
-                <div class="col-md-12">
-                  <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingName" placeholder="Proposal Keuangan" name="title" required="" value="{{$datas->title}}">
-                    <label for="floatingName">Judul Berkas</label>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <div class="form-floating">
-                    <textarea class="form-control" placeholder="Proposal Keuangan tahun 2020" id="floatingTextarea" style="height: 100px;" name="description" >{{$datas->description}}</textarea>
-                    <label for="floatingTextarea">Deskripsi</label>
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="form-floating">
-                    <input type="file" class="form-control" id="floatingName" accept=".pdf" placeholder="Berkas" name="document" >
-                    <p style="color: orange; font-size: 10px">File harus format .pdf</p>
-                    <label for="floatingName">Upload Berkas</label>
-                  </div>
-                </div>
-                <div>
-                  <button type="submit" class="btn btn-primary" >Save</button>
-                  <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                </div>
-              </form><!-- End floating Labels Form -->
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    @endforeach
-
-<!-- End Modal -->
   </main><!-- End #main -->
 @stop
