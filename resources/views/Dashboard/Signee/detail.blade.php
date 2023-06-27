@@ -13,15 +13,44 @@
       </nav>
     </div><!-- End Page Title -->
     <section class="section profile">
+    @if(Session::get('success'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <i class="bi bi-check-circle me-1"></i>
+                {{Session::get('success')}}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      @endif
+      @if(Session::get('warning'))
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <i class="bi bi-check-circle me-1"></i>
+                {{Session::get('warning')}}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      @endif
+      @if(Session::get('danger'))
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <i class="bi bi-check-circle me-1"></i>
+                {{Session::get('danger')}}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      @endif
       <div class="row">
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title"></h5>
+              @if(Auth::user()->role == 3)
               <a href="/signee/submissions" class="btn btn-secondary" >
                 <i class="bi bi-chevron-left"></i>
                   Kembali  
-                </a>
+              </a>
+              @endif
+              @if(Auth::user()->role == 2)
+              <a href="/signer/submissions?q_status=1" class="btn btn-secondary" >
+                <i class="bi bi-chevron-left"></i>
+                  Kembali  
+              </a>
+              @endif
               <br>
                 <div class="col-xl-12">
                     <div class="tab-pane fade show active profile-overview" id="profile-overview">
@@ -113,8 +142,50 @@
                   </div>
                 </div>
                 @endforeach
+                @if(Auth::user()->role == 2 && $data->status == 1)
+                <div class="d-grid gap-2 mt-3">
+                  <a href="/signer/submissions/action?action=1" class="btn btn-success" >
+                    <i class="bi bi-check"></i>
+                    Setuju
+                  </a> 
+                  <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                    <i class="bi bi-x"></i>
+                    Tolak  
+                  </a>
+                </div>
+                @endif
+                
               </div><!-- End Default Accordion Example -->
+            <!-- Modal -->
+    <div class="modal fade" id="rejectModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Tolak Berkas</h5>
 
+              <!-- Floating Labels Form -->
+              <form class="row g-3" method="POST" action="/signer/submissions/reject/{{$data->id}}" enctype="multipart/form-data">
+              {!! csrf_field() !!}
+                <div class="col-12">
+                  <div class="form-floating">
+                    <textarea class="form-control" placeholder="Proposal Keuangan tahun 2020" id="floatingTextarea" style="height: 100px;" name="notes"></textarea>
+                    <label for="floatingTextarea">Notes</label>
+                  </div>
+                </div>
+                <div>
+                  <button type="submit" class="btn btn-primary" >Save</button>
+                  <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+              </form><!-- End floating Labels Form -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--endModal -->
             </div>
           </div>
 

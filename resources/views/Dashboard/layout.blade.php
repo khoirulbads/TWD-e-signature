@@ -122,6 +122,23 @@
       @endif
 
       @if(Auth::user()->role == 2)
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#berkas-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-clipboard-check"></i><span>Pengajuan Berkas</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="berkas-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/signer/submissions?q_status=1">
+              <i class="bi bi-circle"></i><span>Pengajuan</span>
+            </a>
+          </li>
+          <li>
+            <a href="/signer/submissions">
+              <i class="bi bi-circle"></i><span>Riwayat</span>
+            </a>
+          </li>
+        </ul>
+      </li>
       @endif
 
       @if(Auth::user()->role == 3)

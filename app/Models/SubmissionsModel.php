@@ -21,6 +21,6 @@ class SubmissionsModel extends Model
     
     public function signee()
     {
-        return $this->hasOne('App\Models\User', 'id', 'signee_id');
+        return $this->hasOne('App\Models\User', 'unique_id', 'signee_id');
     }
 }

@@ -12,9 +12,7 @@ use Ramsey\Uuid\Uuid;
 class AuthController extends Controller
 {
     public function login(){
-        if (count(Auth::user()->tokens) == 0) {
-            return redirect('/dashboard');
-        }
+        
         return view('Auth.login');
     }
     
@@ -23,9 +21,6 @@ class AuthController extends Controller
     }
 
     public function register(){
-        if (count(Auth::user()->tokens) == 0) {
-            return redirect('/dashboard');
-        }
         return view('Auth.register');
     }
     
@@ -51,7 +46,8 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 3
+            'role' => 3,
+            'unique_id' => Uuid::uuid4()
         ]);
         
         return redirect('/auth/register')

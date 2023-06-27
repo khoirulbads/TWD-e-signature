@@ -40,10 +40,21 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::group(['prefix' => 'signee', 'as' => 'signee.'], function () {
         Route::group(['prefix' => 'submissions', 'as' => 'submissions.'], function () {
             Route::get('/', [SubmissionsController::class, 'signeeIndex']);    
-            Route::get('/{id}', [SubmissionsController::class, 'Detail']);   
+            Route::get('/{id}', [SubmissionsController::class, 'detail']);   
             Route::post('/', [SubmissionsController::class, 'signeeCreate']);
             Route::get('/delete/{id}', [SubmissionsController::class, 'signeeDelete']);   
             Route::post('/update/{id}', [SubmissionsController::class, 'signeeUpdate']);        
+        });
+    });
+
+    Route::group(['prefix' => 'signer', 'as' => 'signer.'], function () {
+        Route::group(['prefix' => 'submissions', 'as' => 'submissions.'], function () {
+            Route::get('/', [SubmissionsController::class, 'signerIndex']);    
+            Route::get('/{id}', [SubmissionsController::class, 'detail']);   
+            Route::post('/reject/{submission_id}', [SubmissionsController::class, 'reject']);   
+            // Route::post('/', [SubmissionsController::class, 'signeeCreate']);
+            // Route::get('/delete/{id}', [SubmissionsController::class, 'signeeDelete']);   
+            // Route::post('/update/{id}', [SubmissionsController::class, 'signeeUpdate']);        
         });
     });
 

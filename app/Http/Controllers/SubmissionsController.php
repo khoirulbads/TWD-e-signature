@@ -16,7 +16,7 @@ class SubmissionsController extends Controller
 {
     public function signeeIndex(){
         $data = SubmissionsModel::withCount('documents')
-            ->where('signee_id', Auth::user()->id)
+            ->where('signee_id', Auth::user()->unique_id)
             ->orderBy('updated_at', 'DESC')->get();
         return view('Dashboard.Signee.submission', compact('data'));
     }
@@ -90,14 +90,41 @@ class SubmissionsController extends Controller
         return redirect('/signee/submissions')->with('danger', 'Pengajuan Berkas telah dihapus!');
     }
 
-    public function Detail($id){
+    public function detail($id){
         $data = SubmissionsModel::with('signee', 'documents')
             ->where('id', $id)->first();
         
         if (Auth::user()->role == 3) {
             return view('Dashboard.Signee.detail', compact('data'));
         }
-        return redirect('/signee/submissions')->with('warning', 'Pengajuan Berkas telah diupdate!');
+        
+        return view('Dashboard.Signee.detail', compact('data'));
+    }
     
+    public function reject(Request $request, $submission_id){
+        $data = SubmissionsModel::where('id', $submission_id)->first();
+        $doc = DocumentsModel::where('submission_id', $submission_id)
+            ->latest()->first();
+        
+        $data->status = 3;
+        $doc->status = 3;
+        $doc->notes = $request->notes;
+
+        $data->save();
+        $doc->save();
+
+        return redirect('/signer/submissions/'.$submission_id)->with('danger', 'Pengajuan ditolak!!');    
+    }
+    public function signerIndex(Request $request){
+        $data = SubmissionsModel::withCount('documents', 'signee');
+
+        if ($request->q_status = '1') {
+            $data = $data->where('status', 1)->orWhere('status',3);
+        }
+        if ($request->q_status = '2') {
+            $data = $data->where('status', 2)->orWhere('status',4);
+        }
+        $data = $data->orderBy('updated_at', 'DESC')->get();
+        return view('Dashboard.Signer.submission-pengajuan', compact('data'));
     }
 }
