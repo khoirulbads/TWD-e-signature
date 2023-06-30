@@ -16,7 +16,7 @@ class SubmissionsModel extends Model
 
     public function documents()
     {
-        return $this->hasMany('App\Models\DocumentsModel', 'submission_id', 'id');
+        return $this->hasMany('App\Models\DocumentsModel', 'submission_id', 'id')->orderBy('created_at', 'ASC');
     }
     
     public function signee()

@@ -34,8 +34,10 @@ Route::post('/auth/login', [AuthController::class, 'loginAction']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/logout', [AuthController::class, 'logout']);
-
     Route::get('/dashboard', [DashboardController::class, 'index']);
+
+    Route::get('/docs/{unique}', [DashboardController::class, 'docs']);
+
 
     Route::group(['prefix' => 'signee', 'as' => 'signee.'], function () {
         Route::group(['prefix' => 'submissions', 'as' => 'submissions.'], function () {
@@ -53,6 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/', [SubmissionsController::class, 'signerIndex']);    
             Route::get('/{id}', [SubmissionsController::class, 'detail']);   
             Route::post('/reject/{submission_id}', [SubmissionsController::class, 'reject']);   
+            Route::get('/approve/{submission_id}', [SubmissionsController::class, 'approve']);   
             // Route::post('/', [SubmissionsController::class, 'signeeCreate']);
             // Route::get('/delete/{id}', [SubmissionsController::class, 'signeeDelete']);   
             // Route::post('/update/{id}', [SubmissionsController::class, 'signeeUpdate']);        

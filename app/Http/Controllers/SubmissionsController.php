@@ -11,7 +11,8 @@ use Ramsey\Uuid\Uuid;
 use Carbon\Carbon;
 use App\Models\SubmissionsModel;
 use App\Models\DocumentsModel;
-
+use PDF;
+use QrCode;
 class SubmissionsController extends Controller
 {
     public function signeeIndex(){
@@ -137,6 +138,33 @@ class SubmissionsController extends Controller
 
         return redirect('/signer/submissions/'.$submission_id)->with('danger', 'Pengajuan ditolak!!');    
     }
+    public function approve($submission_id){
+        $data = SubmissionsModel::where('id', $submission_id)->first();
+        $doc = DocumentsModel::where('submission_id', $submission_id)
+            ->latest()->first();
+        
+        $doc->status = 2;
+        $data->status = 2;
+
+        $data->save();
+        $doc->save();
+
+        $docs = new DocumentsModel();
+        $docs->id = Uuid::uuid4();
+        $docs->submission_id = $data->id;
+        $docs->unique = $docs->id.Uuid::uuid4().$data->id;         
+        $docs->file_name = 'assets/docs/'.$data->id.'-signed.pdf';
+        $docs->file_mime = '.pdf';
+        $docs->file_path = $docs->file_name;
+        $docs->status = 5;
+        $docs->save();
+
+        $data->qrcode = base64_encode(QrCode::format('svg')->size(200)->errorCorrection('H')->generate($docs->unique));
+        PDF::loadView('/Dashboard/docs', compact('data'))->save('assets/docs/'.$data->id.'-signed.pdf');
+
+        return redirect('/signer/submissions/'.$submission_id)->with('success', 'Pengajuan telah disetujui');
+    }
+
     public function signerIndex(Request $request){
         $data = SubmissionsModel::withCount('documents', 'signee');
 
