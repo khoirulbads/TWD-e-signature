@@ -106,23 +106,21 @@
         <h2>
           Cek Dokumen
         </h2>
-      </div>
-      <div class="box">
-        <div class="img-box">
-          <img src="{{asset('/uliya-htmlimages/about-img.jpg')}}" alt="">
-          <div class="about_img-bg">
-            <img src="{{asset('/uliya-htmlimages/about-img-bg.png')}}" alt="">
+      </div>   
+      <div class="fl scanner" id="scanner">
+        <center> 
+          <div id="reader" style="width: 300px;"></div>
+          <div id="verifiedImg" style="display:none">
+            <img src="{{asset('/uliya-html/images/verified.png')}}" alt="" style="width:300px" >    
           </div>
-        </div>
+          </center>      
+      </div>
+      <input type="hidden" placeholder="ID Partner" name="idPartner" id="idPartner" value="" required> 
+      <div class="box">
         <div class="detail-box">
-          <p>
-            It is a long established fact that a reader will be distracted by the readable content of a page when
-            looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of
-            letters,
-          </p>
           <div>
-            <a href="">
-              about More
+            <a id="scanBtn">
+              Scan Dokumen
             </a>
           </div>
         </div>
@@ -182,7 +180,29 @@
 
   <script type="text/javascript" src="{{asset('/uliya-html/js/jquery-3.4.1.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('/uliya-html/js/bootstrap.js')}}"></script>
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
+<script type="text/javascript">
+  const readerDiv = document.getElementById("reader");
+  const img = document.getElementById("verifiedImg");
+      
+  const formatsToSupport = [
+      Html5QrcodeSupportedFormats.QR_CODE
+   ];
+   const html5QrCode = new Html5Qrcode("reader");
+
+   const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+      /* handle success */
+      console.log(`Code matched = ${decodedText}`, decodedResult);
+      
+      readerDiv.style.display = "none";
+      img.style.display = "block";
+
+    };
+
+   const config = { fps: 10, qrbox: { width: 200, height: 200, formatsToSupport: formatsToSupport} };
+   html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
+</script>
 </body>
 
 </html>
