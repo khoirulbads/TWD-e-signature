@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Title of the document</title>
+    <title>{{$data->id}}-signed.pdf</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
   </head>
   <body>
-    <h1></h1>
-    <!-- <object data="{{env('APP_URL')}}/{{$data->file_name}}" type="application/pdf" width="100%" height="500px">
-    <p>Open a PDF file <a href="{{env('APP_URL')}}/{{$data->file_name}}">example</a>.</p> -->
-    
-    <embed src="{{env('APP_URL')}}/{{$data->file_name}}" width="600" height="500" alt="pdf" /><div class="container mt-4">
-      <div class="card">
-          <div class="card-body">
-          <img src="data:image/png;base64, {!! $data->qrcode !!}"></div>
-      </div>
-    </div>
-  </body>
+    @for ($i = 1; $i <= $data->count ; $i++)
+      <?php 
+        $sub = substr($data->old_name, 12);
+        $fsub = substr($sub, 0, -4);
+      ?>
+    @if($i == 1)
+    <img src="assets/docs/{{$data->folder}}/{{$fsub}}.png" style="width:90%">
+    @endif
+    @if($i > 1)
+    <img src="assets/docs/{{$data->folder}}/{{$fsub}}-{{$i}}.png" style="width:90%">
+    @endif
+    <br>
+    <img src="data:image/png;base64, {!! $data->qrcode !!}"></div>
+    <p style="page-break-after: always;"></p>
+    @endfor
+    </body>
 </html>

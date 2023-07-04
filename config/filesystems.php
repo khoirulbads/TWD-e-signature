@@ -56,7 +56,14 @@ return [
         'my_files' => [
             'driver' => 'local',
             'root'   => public_path() . '/'
-        ]
+        ],
+
+        'dropbox' => [
+            'driver' => 'dropbox',
+            'key' => env('DROPBOX_APP_KEY'),
+            'secret' => env('DROPBOX_APP_SECRET'),
+            'authorization_token' => env('DROPBOX_AUTH_TOKEN'),
+        ],
     ],
 
     /*

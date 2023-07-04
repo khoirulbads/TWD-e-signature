@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "32b24911659f360efe2f71cb94033a35",
+    "content-hash": "7e7f17187429ee9937f57828ae376f80",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -252,6 +252,58 @@
                 }
             ],
             "time": "2021-08-15T20:50:18+00:00"
+        },
+        {
+            "name": "convertapi/convertapi-php",
+            "version": "v1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ConvertAPI/convertapi-php.git",
+                "reference": "c17fb7b277da956f5335c84805f92a8389298e5f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ConvertAPI/convertapi-php/zipball/c17fb7b277da956f5335c84805f92a8389298e5f",
+                "reference": "c17fb7b277da956f5335c84805f92a8389298e5f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ConvertApi\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ConvertAPI and contributors",
+                    "homepage": "https://github.com/ConvertAPI/convertapi-php/graphs/contributors"
+                }
+            ],
+            "description": "Convert API PHP Client",
+            "homepage": "https://github.com/ConvertAPI/convertapi-php",
+            "keywords": [
+                "api",
+                "client",
+                "conversion",
+                "convert"
+            ],
+            "support": {
+                "issues": "https://github.com/ConvertAPI/convertapi-php/issues",
+                "source": "https://github.com/ConvertAPI/convertapi-php/tree/v1.6.1"
+            },
+            "time": "2022-09-18T20:50:29+00:00"
         },
         {
             "name": "dasprid/enum",
@@ -937,6 +989,49 @@
             "time": "2022-09-10T18:51:20+00:00"
         },
         {
+            "name": "dropbox/dropbox-sdk",
+            "version": "v1.1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dropbox/dropbox-sdk-php.git",
+                "reference": "0f1a178ca9c0271bca6426dde8f5a2241578deae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dropbox/dropbox-sdk-php/zipball/0f1a178ca9c0271bca6426dde8f5a2241578deae",
+                "reference": "0f1a178ca9c0271bca6426dde8f5a2241578deae",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">= 5.3"
+            },
+            "require-dev": {
+                "apigen/apigen": "4.1.2",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "2.0.0RC3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Dropbox": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Dropbox SDK for PHP",
+            "keywords": [
+                "dropbox"
+            ],
+            "support": {
+                "issues": "https://github.com/dropbox/dropbox-sdk-php/issues",
+                "source": "https://github.com/dropbox/dropbox-sdk-php/tree/v1.1.7"
+            },
+            "time": "2016-08-08T23:48:49+00:00"
+        },
+        {
             "name": "egulias/email-validator",
             "version": "2.1.25",
             "source": {
@@ -1083,6 +1178,70 @@
             ],
             "abandoned": true,
             "time": "2022-02-23T14:25:13+00:00"
+        },
+        {
+            "name": "graham-campbell/guzzle-factory",
+            "version": "v5.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GrahamCampbell/Guzzle-Factory.git",
+                "reference": "f93cfbffd422920f5d9915ec7d682f030ddffda6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GrahamCampbell/Guzzle-Factory/zipball/f93cfbffd422920f5d9915ec7d682f030ddffda6",
+                "reference": "f93cfbffd422920f5d9915ec7d682f030ddffda6",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.2",
+                "php": "^7.2.5 || ^8.0"
+            },
+            "require-dev": {
+                "graham-campbell/analyzer": "^3.0.4",
+                "phpunit/phpunit": "^8.5.8 || ^9.3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GrahamCampbell\\GuzzleFactory\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "hello@gjcampbell.co.uk",
+                    "homepage": "https://github.com/GrahamCampbell"
+                }
+            ],
+            "description": "Provides A Simple Guzzle Factory With Good Defaults",
+            "keywords": [
+                "Graham Campbell",
+                "GrahamCampbell",
+                "Guzzle",
+                "Guzzle Factory",
+                "Guzzle-Factory",
+                "http"
+            ],
+            "support": {
+                "issues": "https://github.com/GrahamCampbell/Guzzle-Factory/issues",
+                "source": "https://github.com/GrahamCampbell/Guzzle-Factory/tree/v5.0.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/graham-campbell/guzzle-factory",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-11-21T21:41:36+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -2023,6 +2182,57 @@
                 }
             ],
             "time": "2022-10-04T09:16:37+00:00"
+        },
+        {
+            "name": "league/flysystem-dropbox",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/flysystem-dropbox.git",
+                "reference": "939f91ca00d0255d9b3aa313e191480d00f09382"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-dropbox/zipball/939f91ca00d0255d9b3aa313e191480d00f09382",
+                "reference": "939f91ca00d0255d9b3aa313e191480d00f09382",
+                "shasum": ""
+            },
+            "require": {
+                "dropbox/dropbox-sdk": "~1.1",
+                "league/flysystem": "~1.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Flysystem\\Dropbox\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frank de Jonge",
+                    "email": "info@frenky.net"
+                }
+            ],
+            "description": "Flysystem adapter for Dropbox",
+            "support": {
+                "issues": "https://github.com/thephpleague/flysystem-dropbox/issues",
+                "source": "https://github.com/thephpleague/flysystem-dropbox/tree/master"
+            },
+            "abandoned": "spatie/flysystem-dropbox",
+            "time": "2016-04-25T18:51:39+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -3462,6 +3672,137 @@
                 "source": "https://github.com/SimpleSoftwareIO/simple-qrcode/tree/4.2.0"
             },
             "time": "2021-02-08T20:43:55+00:00"
+        },
+        {
+            "name": "spatie/dropbox-api",
+            "version": "1.21.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/dropbox-api.git",
+                "reference": "9769c737b8d91a75b466ce14ed01b205da276597"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/dropbox-api/zipball/9769c737b8d91a75b466ce14ed01b205da276597",
+                "reference": "9769c737b8d91a75b466ce14ed01b205da276597",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "graham-campbell/guzzle-factory": "^3.0|^4.0|^5.0|^6.0|^7.0",
+                "guzzlehttp/guzzle": "^6.2|^7.0",
+                "php": "^7.1|^8.0"
+            },
+            "conflict": {
+                "guzzlehttp/psr7": "<1.7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Dropbox\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Vanderbist",
+                    "email": "alex.vanderbist@gmail.com",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A minimal implementation of Dropbox API v2",
+            "homepage": "https://github.com/spatie/dropbox-api",
+            "keywords": [
+                "Dropbox-API",
+                "api",
+                "dropbox",
+                "spatie",
+                "v2"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/dropbox-api/issues",
+                "source": "https://github.com/spatie/dropbox-api/tree/1.21.2"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-06-07T11:45:23+00:00"
+        },
+        {
+            "name": "spatie/flysystem-dropbox",
+            "version": "1.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/flysystem-dropbox.git",
+                "reference": "8b6b072f217343b875316ca6a4203dd59f04207a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/flysystem-dropbox/zipball/8b6b072f217343b875316ca6a4203dd59f04207a",
+                "reference": "8b6b072f217343b875316ca6a4203dd59f04207a",
+                "shasum": ""
+            },
+            "require": {
+                "league/flysystem": "^1.0.20",
+                "php": "^7.0 || ^8.0",
+                "spatie/dropbox-api": "^1.1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.5.14 || ^7.5.20 || ^8.5.11 || ^9.4.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\FlysystemDropbox\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Vanderbist",
+                    "email": "alex.vanderbist@gmail.com",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Flysystem Adapter for the Dropbox v2 API",
+            "homepage": "https://github.com/spatie/flysystem-dropbox",
+            "keywords": [
+                "Flysystem",
+                "api",
+                "dropbox",
+                "flysystem-dropbox",
+                "spatie",
+                "v2"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/flysystem-dropbox/issues",
+                "source": "https://github.com/spatie/flysystem-dropbox/tree/1.2.3"
+            },
+            "time": "2020-11-28T22:17:09+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -5159,6 +5500,88 @@
             "time": "2022-11-03T14:55:06+00:00"
         },
         {
+            "name": "symfony/polyfill-uuid",
+            "version": "v1.27.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-uuid.git",
+                "reference": "f3cf1a645c2734236ed1e2e671e273eeb3586166"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-uuid/zipball/f3cf1a645c2734236ed1e2e671e273eeb3586166",
+                "reference": "f3cf1a645c2734236ed1e2e671e273eeb3586166",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "provide": {
+                "ext-uuid": "*"
+            },
+            "suggest": {
+                "ext-uuid": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.27-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Uuid\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Grégoire Pineau",
+                    "email": "lyrixx@lyrixx.info"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for uuid functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "uuid"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-uuid/tree/v1.27.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-11-03T14:55:06+00:00"
+        },
+        {
             "name": "symfony/process",
             "version": "v5.4.24",
             "source": {
@@ -5794,6 +6217,69 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.6"
             },
             "time": "2023-01-03T09:29:04+00:00"
+        },
+        {
+            "name": "uploadcare/uploadcare-php",
+            "version": "v3.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/uploadcare/uploadcare-php.git",
+                "reference": "24a275ed8b13d85f84c75da3d9af7b36d9ad44c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/uploadcare/uploadcare-php/zipball/24a275ed8b13d85f84c75da3d9af7b36d9ad44c5",
+                "reference": "24a275ed8b13d85f84c75da3d9af7b36d9ad44c5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.5||^7",
+                "guzzlehttp/psr7": "^1.6||^2",
+                "php": ">=7.1 || >=8.0",
+                "symfony/polyfill-uuid": "^1.17"
+            },
+            "require-dev": {
+                "fakerphp/faker": "^1.9",
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "phpunit/phpunit": "^5.7||^7||^9",
+                "symfony/dotenv": "^3.4",
+                "symfony/var-dumper": "^3.4||^5",
+                "vimeo/psalm": "^4.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Uploadcare\\": "./src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Uploadcare, Inc",
+                    "email": "hello@uploadcare.com"
+                }
+            ],
+            "description": "Uploadcare PHP integration handles uploads and further operations with files by wrapping Upload and REST APIs.",
+            "homepage": "https://uploadcare.com",
+            "keywords": [
+                "cdn",
+                "cloud",
+                "files",
+                "image management",
+                "upload",
+                "uploadcare"
+            ],
+            "support": {
+                "email": "help@uploadcare.com",
+                "issues": "https://github.com/uploadcare/uploadcare-php/issues",
+                "source": "https://github.com/uploadcare/uploadcare-php/tree/v3.2.4"
+            },
+            "time": "2022-07-22T10:47:48+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

@@ -31,13 +31,14 @@ Route::get('/auth/register', [AuthController::class, 'register']);
 
 Route::post('/auth/register', [AuthController::class, 'registerAction']);
 Route::post('/auth/login', [AuthController::class, 'loginAction']);
+Route::post('/docs', [DashboardController::class, 'docs']);
+Route::get('/subdocs', [DashboardController::class, 'subDocs']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/logout', [AuthController::class, 'logout']);
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
-    Route::get('/docs/{unique}', [DashboardController::class, 'docs']);
-
+    
 
     Route::group(['prefix' => 'signee', 'as' => 'signee.'], function () {
         Route::group(['prefix' => 'submissions', 'as' => 'submissions.'], function () {
