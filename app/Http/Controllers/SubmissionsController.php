@@ -150,8 +150,8 @@ class SubmissionsController extends Controller
         $doc->status = 2;
         $data->status = 2;
 
-        // $data->save();
-        // $doc->save();
+        $data->save();
+        $doc->save();
 
         $docs = new DocumentsModel();
         $docs->id = Uuid::uuid4();
@@ -161,18 +161,18 @@ class SubmissionsController extends Controller
         $docs->file_mime = '.pdf';
         $docs->file_path = $docs->file_name;
         $docs->status = 5;
-        // $docs->save();
+        $docs->save();
 
-        // $path = public_path().'/assets/docs/'.$doc->id;
-        // File::makeDirectory($path, $mode = 0777, true, true);
+        $path = public_path().'/assets/docs/'.$doc->id;
+        File::makeDirectory($path, $mode = 0777, true, true);
         
-        // ConvertApi::setApiSecret('IAelmlCkH8XXBqje');
-        // $result = ConvertApi::convert('png', [
-        //         'File' => public_path('/'.$doc->file_name),
-        //     ], 'pdf'
-        // );
+        ConvertApi::setApiSecret('IAelmlCkH8XXBqje');
+        $result = ConvertApi::convert('png', [
+                'File' => public_path('/'.$doc->file_name),
+            ], 'pdf'
+        );
 
-        // $result->saveFiles(public_path().'/assets/docs/'.$doc->id);
+        $result->saveFiles(public_path().'/assets/docs/'.$doc->id);
        
         $countFiles = count(File::files(public_path('assets/docs/'.$doc->id)));
         $data->qrcode = base64_encode(QrCode::format('svg')->size(50)->errorCorrection('H')->generate($docs->unique));

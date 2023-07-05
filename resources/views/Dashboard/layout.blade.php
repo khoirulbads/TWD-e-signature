@@ -186,9 +186,9 @@
   <script src="{{asset('/NiceAdmin/assets/js/main.js')}}"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-  <script src="https://unpkg.com/html5-qrcode" type="text/javascript">
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
   <!-- select2 -->
-
+  
   <script type="text/javascript">
 
     $(document).ready(function () {
