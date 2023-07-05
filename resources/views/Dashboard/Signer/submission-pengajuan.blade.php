@@ -77,10 +77,17 @@
                     <td><span class="badge bg-secondary">dibatalkan</span></td>
                     @endif
                     <td>
+                    @if (Auth::user()->role == 2)
                     <a href="/signer/submissions/{{$datas->id}}" class="btn btn-secondary btn-sm" data-bs-toggle="tooltip" title="Detail" >
                         <i class="bi bi-file-earmark-pdf"></i>
                     </a>
-                      <!-- <a href="" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{$datas->id}}" >
+                    @endif
+                    
+                    @if (Auth::user()->role == 1)
+                    <a href="/admin/submissions/{{$datas->id}}" class="btn btn-secondary btn-sm" data-bs-toggle="tooltip" title="Detail" >
+                        <i class="bi bi-file-earmark-pdf"></i>
+                    </a>
+                    @endif  <!-- <a href="" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{$datas->id}}" >
                         <i class="bi bi-pencil-square"></i>
                       </a>
                       <a href="/dashboard/trainer/reset/{{$datas->id}}" class="btn btn-danger btn-sm" 

@@ -46,7 +46,13 @@
               </a>
               @endif
               @if(Auth::user()->role == 2)
-              <a href="/signer/submissions?q_status=1" class="btn btn-secondary" >
+              <a href="javascript:history.back()" class="btn btn-secondary" >
+                <i class="bi bi-chevron-left"></i>
+                  Kembali  
+              </a>
+              @endif
+              @if(Auth::user()->role == 1)
+              <a href="javascript:history.back()" class="btn btn-secondary" >
                 <i class="bi bi-chevron-left"></i>
                   Kembali  
               </a>

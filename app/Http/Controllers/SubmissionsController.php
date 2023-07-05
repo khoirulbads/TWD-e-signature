@@ -197,4 +197,17 @@ class SubmissionsController extends Controller
         $data = $data->orderBy('updated_at', 'DESC')->get();
         return view('Dashboard.Signer.submission-pengajuan', compact('data'));
     }
+
+    public function adminIndex(Request $request){
+        $data = SubmissionsModel::withCount('documents', 'signee');
+
+        if ($request->q_status == 1) {
+            $data = $data->whereIn('status', [1,3]);
+        }
+        if ($request->q_status == 2) {
+            $data = $data->whereIn('status', [2,4]);
+        }
+        $data = $data->orderBy('updated_at', 'DESC')->get();
+        return view('Dashboard.Signer.submission-pengajuan', compact('data'));
+    }
 }

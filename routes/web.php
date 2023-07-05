@@ -39,6 +39,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
 
     
+    Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+        Route::group(['prefix' => 'submissions', 'as' => 'submissions.'], function () {
+            Route::get('/', [SubmissionsController::class, 'adminIndex']);    
+            Route::get('/{id}', [SubmissionsController::class, 'detail']);        
+        });
+    });
 
     Route::group(['prefix' => 'signee', 'as' => 'signee.'], function () {
         Route::group(['prefix' => 'submissions', 'as' => 'submissions.'], function () {
@@ -62,5 +68,6 @@ Route::middleware('auth:sanctum')->group(function () {
             // Route::post('/update/{id}', [SubmissionsController::class, 'signeeUpdate']);        
         });
     });
+
 
 });
