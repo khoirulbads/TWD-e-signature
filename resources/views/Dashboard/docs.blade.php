@@ -12,14 +12,17 @@
         $fsub = substr($sub, 0, -4);
       ?>
     @if($i == 1)
-    <img src="assets/docs/{{$data->folder}}/{{$fsub}}.png" style="width:90%">
+    <img src="assets/docs/{{$data->folder}}/{{$fsub}}.png" style="width:100%">
     @endif
     @if($i > 1)
-    <img src="assets/docs/{{$data->folder}}/{{$fsub}}-{{$i}}.png" style="width:90%">
+    <img src="assets/docs/{{$data->folder}}/{{$fsub}}-{{$i}}.png" style="width:100%">
     @endif
     <br>
-    <img src="data:image/png;base64, {!! $data->qrcode !!}"></div>
+    <img src="data:image/png;base64, {!! $data->qrcode !!}" style="position:absolute; bottom:8px">
+    @if($i < $data->count)
     <p style="page-break-after: always;"></p>
+    @endif
+    
     @endfor
     </body>
 </html>

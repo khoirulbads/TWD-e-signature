@@ -56,6 +56,8 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+    'convert_api_secret' => env('CONVERT_API_SECRET', NULL),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

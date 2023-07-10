@@ -166,7 +166,8 @@ class SubmissionsController extends Controller
         $path = public_path().'/assets/docs/'.$doc->id;
         File::makeDirectory($path, $mode = 0777, true, true);
         
-        ConvertApi::setApiSecret('IAelmlCkH8XXBqje');
+        $secret = config('app.convert_api_secret');
+        ConvertApi::setApiSecret($secret);
         $result = ConvertApi::convert('png', [
                 'File' => public_path('/'.$doc->file_name),
             ], 'pdf'

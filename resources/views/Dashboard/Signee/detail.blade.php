@@ -151,10 +151,11 @@
                         @endforeach
                         @if(Auth::user()->role == 2 && $data->status == 1)
                         <div class="d-grid gap-2 mt-3">
-                          <a href="/signer/submissions/approve/{{$data->id}}" class="btn btn-success" >
-                            <i class="bi bi-check"></i>
-                            Setuju
-                          </a> 
+                          <a href="/signer/submissions/approve/{{$data->id}}" class="btn btn-success" 
+                            onclick="return confirm('Anda yakin ingin setujui berkas?')" 
+                            data-bs-toggle="tooltip" data-bs-placement="top" title="Setuju">
+                            <i class="bi bi-check"></i>Setuju
+                          </a>
                           <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
                             <i class="bi bi-x"></i>
                             Tolak  
