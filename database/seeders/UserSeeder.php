@@ -24,7 +24,9 @@ class UserSeeder extends Seeder
             'name' => 'SuperAdmin',
             'email' => 'superadmin@gmail.com',
             'password' => Hash::make('Superadmin12345'),
-            'role' => 1
+            'role' => 1,
+            'unique_id' => Uuid::uuid4(),
+            
         ]);
 
 
@@ -33,7 +35,9 @@ class UserSeeder extends Seeder
             'name' => 'Signer',
             'email' => 'signer@gmail.com',
             'password' => Hash::make('Signer12345'),
-            'role' => 2
+            'role' => 2,
+            'unique_id' => Uuid::uuid4(),
+            
         ]);
     }
 }

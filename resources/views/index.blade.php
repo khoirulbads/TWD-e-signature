@@ -119,7 +119,7 @@
       <div class="box">
         <div class="detail-box">
           <div>
-            <a id="scanBtn">
+            <a id="scanBtn" onClick="return btn()">
               Scan Dokumen
             </a>
           </div>
@@ -182,9 +182,11 @@
   <script type="text/javascript" src="{{asset('/uliya-html/js/bootstrap.js')}}"></script>
   <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
+
 <script type="text/javascript">
   const readerDiv = document.getElementById("reader");
   const img = document.getElementById("verifiedImg");
+  const btn = document.getElementById("scanBtn");
       
   const formatsToSupport = [
       Html5QrcodeSupportedFormats.QR_CODE
@@ -199,7 +201,6 @@
       img.style.display = "block";
 
     };
-
    const config = { fps: 10, qrbox: { width: 200, height: 200, formatsToSupport: formatsToSupport} };
    html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
 </script>
