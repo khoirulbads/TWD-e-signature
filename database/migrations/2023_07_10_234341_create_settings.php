@@ -14,11 +14,14 @@ class CreateSettings extends Migration
     public function up()
     {
         Schema::create('settings', function (Blueprint $table) {
-            $table->id();
-            $table->text('signer_name');
-            $table->text('location');
-            $table->text('signature');
+            $table->uuid('id')->primary();
+            $table->text('signer_name')->nullable();
+            $table->text('location')->nullable();
+            $table->text('signature')->nullable();
+            $table->text('department')->nullable();
+            $table->text('paraf')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

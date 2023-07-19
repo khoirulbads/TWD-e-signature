@@ -157,6 +157,12 @@
           </li>
         </ul>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/signer/setting">
+          <i class="bi bi-gear"></i>
+          <span>Setting</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
       @endif
 
       @if(Auth::user()->role == 3)

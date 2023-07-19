@@ -26,7 +26,6 @@ class UserSeeder extends Seeder
             'password' => Hash::make('Superadmin12345'),
             'role' => 1,
             'unique_id' => Uuid::uuid4(),
-            
         ]);
 
 
@@ -39,5 +38,14 @@ class UserSeeder extends Seeder
             'unique_id' => Uuid::uuid4(),
             
         ]);
+
+        // DB::table('settings')->insert([
+        //     'id' => Uuid::uuid4(),
+        //     'signer_name' => NULL,
+        //     'location' => NULL,
+        //     'department' => NULL,
+        //     'signature' => NULL,
+        //     'paraf' => NULL,
+        // ]);
     }
 }

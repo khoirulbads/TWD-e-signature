@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SubmissionsController;
+use App\Http\Controllers\SettingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,11 +63,15 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/', [SubmissionsController::class, 'signerIndex']);    
             Route::get('/{id}', [SubmissionsController::class, 'detail']);   
             Route::post('/reject/{submission_id}', [SubmissionsController::class, 'reject']);   
-            Route::get('/approve/{submission_id}', [SubmissionsController::class, 'approve']);   
+            Route::get('/approve/{submission_id}', [SubmissionsController::class, 'approve']);
+            
             // Route::post('/', [SubmissionsController::class, 'signeeCreate']);
             // Route::get('/delete/{id}', [SubmissionsController::class, 'signeeDelete']);   
             // Route::post('/update/{id}', [SubmissionsController::class, 'signeeUpdate']);        
         });
+        Route::get('/setting', [SettingController::class, 'index']);   
+        Route::post('/setting/save', [SettingController::class, 'save']);   
+    
     });
 
 
