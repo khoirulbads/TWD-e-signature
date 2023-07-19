@@ -11,6 +11,7 @@ use Ramsey\Uuid\Uuid;
 use Carbon\Carbon;
 use App\Models\SubmissionsModel;
 use App\Models\DocumentsModel;
+use App\Models\SettingModel;
 use PDF;
 use QrCode;
 use \ConvertApi\ConvertApi;
@@ -142,9 +143,9 @@ class SubmissionsController extends Controller
 
         return redirect('/signer/submissions/'.$submission_id)->with('danger', 'Pengajuan ditolak!!');    
     }
-    public function approve($submission_id){
+    public function approve($submission_id, Request $request){
         $data = SubmissionsModel::where('id', $submission_id)->first();
-        $doc = DocumentsModel::where('submission_id', $submission_id)
+        $doc = DocumentsModel::where('submission_id', $submission_id)->where('status',1)
             ->latest()->first();
         
         $doc->status = 2;
@@ -180,7 +181,8 @@ class SubmissionsController extends Controller
         $data->old_name = $doc->file_name;
         $data->count = $countFiles;
         $data->folder = $doc->id;
-        
+        $data->setting = SettingModel::first();
+        $data->is_signature = $request->is_signature;
         PDF::loadView('/Dashboard/docs', compact('data'))->save('assets/docs/'.$data->id.'-signed.pdf');
         
         return redirect('/signer/submissions/'.$submission_id)->with('success', 'Pengajuan telah disetujui');

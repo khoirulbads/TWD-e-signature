@@ -151,9 +151,8 @@
                         @endforeach
                         @if(Auth::user()->role == 2 && $data->status == 1)
                         <div class="d-grid gap-2 mt-3">
-                          <a href="/signer/submissions/approve/{{$data->id}}" class="btn btn-success" 
-                            onclick="return confirm('Anda yakin ingin setujui berkas?')" 
-                            data-bs-toggle="tooltip" data-bs-placement="top" title="Setuju">
+                          <a class="btn btn-success" 
+                          data-bs-toggle="modal" data-bs-target="#approveModal">
                             <i class="bi bi-check"></i>Setuju
                           </a>
                           <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
@@ -268,7 +267,28 @@
                   </div>
                 </div>
               </div>
+              
+            <div class="modal fade" id="approveModal" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Setujui Dokumen</h5>
+                      
+                      <h5>Apakah anda ingin menyertakan Tanda Tangan??</h5>
+                      <a href="/signer/submissions/approve/{{$data->id}}?is_signature=yes" class="btn btn-success" >
+                            <i class="bi bi-check"></i>Ya
+                      </a>
+                      <a href="/signer/submissions/approve/{{$data->id}}?is_signature=no" class="btn btn-danger" >
+                            <i class="bi bi-x"></i>Tidak
+                      </a>
 
+                          
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
               <!--endModal -->
         
                 </div>
@@ -277,5 +297,8 @@
         </div>
       </div>
     </section>
+
+    
+
   </main><!-- End #main -->
 @stop

@@ -18,9 +18,18 @@
     <img src="assets/docs/{{$data->folder}}/{{$fsub}}-{{$i}}.png" style="width:100%">
     @endif
     <br>
+    <!-- <hr style="bottom:180px; width:200%"></hr> -->
     <img src="data:image/png;base64, {!! $data->qrcode !!}" style="position:absolute; bottom:8px">
-    @if($i < $data->count)
-    <p style="page-break-after: always;"></p>
+    <img src="{{$data->setting->paraf}}" style="width:50px;position:absolute; bottom:8px; margin-left:70px;">
+    <p style="position:absolute; bottom:-25px; font-size:10px">Dokumen ini telah disetujui dan ditanda tangani secara digital oleh Anton Law Firm pada platform ParafDigital.id serta telah menyimpan salinannya. </p>
+    @if($i == $data->count && $data->is_signature == "yes")
+    <p style="position:absolute; bottom:204px;margin-left:400px;">disetujui pada {{ now()->format('d-m-Y') }} </p>
+    <h5 style="position:absolute; bottom:190px;margin-left:400px;">XXX LawFirm </h5>
+    <img src="{{$data->setting->signature}}" style="width:120px;position:absolute; bottom:110px; margin-left:400px;">
+    <p style="position:absolute; bottom:80px;margin-left:400px;">{{$data->setting->signer_name}}</p>
+    
+    
+    <!-- <p style="page-break-after: always;"></p> -->
     @endif
     
     @endfor
