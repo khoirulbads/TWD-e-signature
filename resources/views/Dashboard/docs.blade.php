@@ -23,15 +23,17 @@
     <img src="{{$data->setting->paraf}}" style="width:50px;position:absolute; bottom:8px; margin-left:70px;">
     <p style="position:absolute; bottom:-25px; font-size:10px">Dokumen ini telah disetujui dan ditanda tangani secara digital oleh Anton Law Firm pada platform ParafDigital.id serta telah menyimpan salinannya. </p>
     @if($i == $data->count && $data->is_signature == "yes")
-    <p style="position:absolute; bottom:204px;margin-left:400px;">disetujui pada {{ now()->format('d-m-Y') }} </p>
-    <h5 style="position:absolute; bottom:190px;margin-left:400px;">XXX LawFirm </h5>
-    <img src="{{$data->setting->signature}}" style="width:120px;position:absolute; bottom:110px; margin-left:400px;">
-    <p style="position:absolute; bottom:80px;margin-left:400px;">{{$data->setting->signer_name}}</p>
-    
-    
-    <!-- <p style="page-break-after: always;"></p> -->
+    <p style="page-break-after: always;"></p>
     @endif
-    
     @endfor
+    <br>
+    <p>Dokumen dengan judul <span>{{$data->title}}</span> dengan halaman berjumlah {{$data->count}} yang di 
+    upload oleh <span>{{$data->signee->name}}</span> pada {{$data->created_at}} telah disetujui dan ditandangani secara digital pada platform <span>signaja.com</span>.
+    </p>
+    <br>
+    <p style="margin-left:400px;">disetujui pada {{ now()->format('d-m-Y') }} </p>
+    <h5 style="margin-left:400px;">XXX LawFirm </h5>
+    <img src="{{$data->setting->signature}}" style="width:120px;margin-left:400px;">
+    <p style="margin-left:400px;">{{$data->setting->signer_name}}</p>
     </body>
 </html>
