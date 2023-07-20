@@ -18,6 +18,7 @@
         "mtownsend/remove-bg": "*",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/flysystem-dropbox": "^1.2",
+        "swiftmailer/swiftmailer": "*",
         "uploadcare/uploadcare-php": "^3.2"
     },
     "require-dev": {

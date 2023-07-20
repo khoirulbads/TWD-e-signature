@@ -17,6 +17,8 @@ use QrCode;
 use \ConvertApi\ConvertApi;
 use File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SubmitEmail;
 
 class SubmissionsController extends Controller
 {
@@ -212,5 +214,38 @@ class SubmissionsController extends Controller
         }
         $data = $data->orderBy('updated_at', 'DESC')->get();
         return view('Dashboard.Signer.submission-pengajuan', compact('data'));
+    }
+
+    public function subEmail($sub_id){
+        $data = SubmissionsModel::where('id', $sub_id)->first();
+        
+        \Mail::to($data->signee->email)->send(new \App\Mail\SubmitEMail($data));
+       
+        dd("Email sudah terkirim.");
+        // return view('emails.reject', compact('data'));
+        
+    }
+
+    public function rejectEmail($sub_id){
+        $data = SubmissionsModel::where('id', $sub_id)->first();
+        
+        \Mail::to($data->signee->email)->send(new \App\Mail\RejectEMail($data));
+       
+        dd("Email sudah terkirim.");
+    
+        // return view('emails.reject', compact('data'));
+        
+    }
+    
+    public function approveEmail($sub_id){
+        $data = SubmissionsModel::where('id', $sub_id)->first();
+        $data->approved = DocumentsModel::where('submission_id', $sub_id)->where('status', 5)->first();
+        
+        \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEMail($data));
+       
+        dd("Email sudah terkirim.");
+    
+        // return view('emails.approve', compact('data'));
+        
     }
 }

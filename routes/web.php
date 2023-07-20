@@ -74,5 +74,8 @@ Route::middleware('auth:sanctum')->group(function () {
     
     });
 
+    Route::get('/email/submit/{sub_id}', [SubmissionsController::class, 'subEmail']);
+    Route::get('/email/reject/{sub_id}', [SubmissionsController::class, 'rejectEmail']);
+    Route::get('/email/approve/{sub_id}', [SubmissionsController::class, 'approveEmail']);
 
 });
