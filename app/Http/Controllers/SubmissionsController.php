@@ -146,7 +146,7 @@ class SubmissionsController extends Controller
         $data->save();
         $doc->save();
         
-        \Mail::to($data->signee->email)->send(new \App\Mail\RejectEMail($data));
+        \Mail::to($data->signee->email)->send(new \App\Mail\RejectEmail($data));
        
         return redirect('/signer/submissions/'.$submission_id)->with('danger', 'Pengajuan ditolak!!');    
     }
@@ -193,7 +193,7 @@ class SubmissionsController extends Controller
         PDF::loadView('/Dashboard/docs', compact('data'))->save('assets/docs/'.$data->id.'-signed.pdf');
         
         $data->approved = $docs;
-        \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEMail($data));
+        \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEmail($data));
        
         return redirect('/signer/submissions/'.$submission_id)->with('success', 'Pengajuan telah disetujui');
     }
@@ -237,7 +237,7 @@ class SubmissionsController extends Controller
     public function rejectEmail($sub_id){
         $data = SubmissionsModel::where('id', $sub_id)->first();
         
-        \Mail::to($data->signee->email)->send(new \App\Mail\RejectEMail($data));
+        \Mail::to($data->signee->email)->send(new \App\Mail\RejectEmail($data));
        
         dd("Email sudah terkirim.");
     
@@ -249,7 +249,7 @@ class SubmissionsController extends Controller
         $data = SubmissionsModel::where('id', $sub_id)->first();
         $data->approved = DocumentsModel::where('submission_id', $sub_id)->where('status', 5)->first();
         
-        \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEMail($data));
+        \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEmail($data));
        
         // dd("Email sudah terkirim.");
     

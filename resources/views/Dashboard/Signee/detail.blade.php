@@ -275,12 +275,12 @@
                     <div class="card-body">
                       <h5 class="card-title">Setujui Dokumen</h5>
                       
-                      <h5>Apakah anda ingin menyertakan Tanda Tangan??</h5>
+                      <h5>Apakah anda ingin menyertakan tanda tangan?</h5>
                       <a href="/signer/submissions/approve/{{$data->id}}?is_signature=yes" class="btn btn-success" >
-                            <i class="bi bi-check"></i>Ya
+                            <i class="bi bi-check"></i>Ya, sertakan.
                       </a>
                       <a href="/signer/submissions/approve/{{$data->id}}?is_signature=no" class="btn btn-danger" >
-                            <i class="bi bi-x"></i>Tidak
+                            <i class="bi bi-x"></i>Tidak, paraf saja.
                       </a>
 
                           

@@ -29,7 +29,7 @@ class ApproveEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('[APPROVED] - '.$this->data->title)
+        return $this->subject('[DISETUJUI] - '.$this->data->title)
                     ->view('emails.approve');
     }
 }
