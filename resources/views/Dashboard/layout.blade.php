@@ -5,9 +5,9 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>E-Signature | Dashboard</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <title>SIGNaja.com | Dashboard</title>
+  <meta content="SIGNaja.com adalah sebuah platform tanda tangan dan paraf secara digital." name="description">
+  <meta content="tanda tangan digital, e-sign, signaja.com" name="keywords">
 
   <!-- Favicons -->
   <link rel="shortcut icon" href="/NiceAdmin/assets/img/logo-1.png" type="image/x-icon">
@@ -30,10 +30,6 @@
   <!-- datatables -->
   <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet">
 
-
-  <!-- Select?2 -->
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.5.0
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -50,7 +46,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
         <!-- <img src="{{asset('/NiceAdmin/assets/img/logo.png')}}" alt=""> -->
-        <span class="d-none d-lg-block">E-Signature</span>
+        <span class="d-none d-lg-block">SIGNaja.com</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -183,36 +179,30 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>E-Signature</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>SIGNaja.com</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->
       <!-- You can delete the links only if you purchased the pro version. -->
       <!-- Licensing information: https://bootstrapmade.com/license/ -->
       <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Developed by TWD | Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      Developed by <a href="https://triwangsadigital.co.id" target="_blank">TWD</a> | Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
     </div>
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
   <!-- Vendor JS Files -->
-  <script src="{{asset('/NiceAdmin/assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
   <script src="{{asset('/NiceAdmin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  <script src="{{asset('/NiceAdmin/assets/vendor/chart.js/chart.umd.js')}}"></script>
-  <script src="{{asset('/NiceAdmin/assets/vendor/echarts/echarts.min.js')}}"></script>
   <script src="{{asset('/NiceAdmin/assets/vendor/quill/quill.min.js')}}"></script>
   <script src="{{asset('/NiceAdmin/assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
   <script src="{{asset('/NiceAdmin/assets/vendor/tinymce/tinymce.min.js')}}"></script>
   <script src="{{asset('/NiceAdmin/assets/vendor/php-email-form/validate.js')}}"></script>
-
-  <!-- Template Main JS File -->
   <script src="{{asset('/NiceAdmin/assets/js/main.js')}}"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-  <!-- select2 -->
-  
+  <!-- Template Main JS File -->
   <script type="text/javascript">
 
     $(document).ready(function () {
@@ -234,8 +224,6 @@
         ordering: false,
         info: true,
       });
-
-      $('.js-ortu-select2').select2();
 
       $('#image_profile').change(function(){    
         let reader = new FileReader();

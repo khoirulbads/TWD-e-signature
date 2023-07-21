@@ -7,7 +7,7 @@
             <td style="font-size:14px;color:#333;font-weight:bold;padding-top:10px;padding-bottom:50px;text-align:left;padding-left:10px"> Hallo {{$data->signee->name}}, </td>
         </tr>
         <tr>
-            <td style="font-size:14px;color:#333;font-weight:normal;padding-top:0px;padding-bottom:20px;text-align:left;padding-left:10px"> Pengajuan berkas anda yang berjudul <b>{{$data->title}}</b> telah <b style="color:green;">DISETUJUI</b>, silakan masuk menggunakan akun anda atau unduh berkas di link di bawah ini.  </td>
+            <td style="font-size:14px;color:#333;font-weight:normal;padding-top:0px;padding-bottom:20px;text-align:left;padding-left:10px"> Pengajuan berkas anda yang berjudul <b>{{$data->title}}</b> telah <b style="color:green;">DISETUJUI</b>, silakan masuk menggunakan akun anda atau unduh berkas melalui link di bawah ini.  </td>
         </tr>
         <tr>
             <td style="font-size:14px;color:#333;font-weight:normal;padding-top:0px;padding-bottom:20px;text-align:left;padding-left:10px"> TERIMA KASIH </td>

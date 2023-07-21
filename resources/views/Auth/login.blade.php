@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Login | E-signature</title>
+  <title>Login | SIGNaja.com</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
   <link rel="shortcut icon" href="/NiceAdmin/assets/img/logo-1.png" type="image/x-icon">
@@ -51,7 +51,7 @@
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
                   <img src="assets/img/logo.png" alt="">
-                  <span class="d-none d-lg-block">E-Signature</span>
+                  <span class="d-none d-lg-block">SIGNaja.com</span>
                 </a>
               </div><!-- End Logo -->
 
@@ -110,12 +110,8 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="{{asset('/NiceAdmin/assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
+
   <script src="{{asset('/NiceAdmin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  <script src="{{asset('/NiceAdmin/assets/vendor/chart.js/chart.umd.js')}}"></script>
-  <script src="{{asset('/NiceAdmin/assets/vendor/echarts/echarts.min.js')}}"></script>
-  <script src="{{asset('/NiceAdmin/assets/vendor/quill/quill.min.js')}}"></script>
-  <script src="{{asset('/NiceAdmin/assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
   <script src="{{asset('/NiceAdmin/assets/vendor/tinymce/tinymce.min.js')}}"></script>
   <script src="{{asset('/NiceAdmin/assets/vendor/php-email-form/validate.js')}}"></script>
 

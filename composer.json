@@ -14,10 +14,8 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.5",
-        "league/flysystem-dropbox": "*",
         "mtownsend/remove-bg": "*",
         "simplesoftwareio/simple-qrcode": "^4.2",
-        "spatie/flysystem-dropbox": "^1.2",
         "swiftmailer/swiftmailer": "*",
         "uploadcare/uploadcare-php": "^3.2"
     },

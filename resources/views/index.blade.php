@@ -8,7 +8,7 @@
   <!-- Mobile Metas -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <link rel="shortcut icon" href="/uliya-html/images/logo-1.png" type="image/x-icon">
-  <title>SignAja - Beranda</title>
+  <title>SIGNaja.com - Beranda</title>
 
 
   <!-- bootstrap core css -->
@@ -35,7 +35,7 @@
               <a class="navbar-brand" href="index.html">
                 <img src="{{asset('/uliya-html/images/logo-1.png')}}" style="width:130%" alt="">
                 <span>
-                  E-Signature
+                  SIGNaja.com
                 </span>
               </a>
               </a>
@@ -70,15 +70,16 @@
                 <div class="col-md-5 offset-md-1 ">
                   <div class="detail_box">
                     <h1>
-                      SignnAja <br>
+                      SIGNaja <br>
                       
                     </h1>
                     <p>
                         Platform berbasi website penyedia Tanda Tangan Digital untuk membuat dokumen anda lebih aman.  
                     </p>
                     <div class="btn-box">
-                      <a href="" class="btn-1">
-                        Cek Dokumen
+                      
+                      <a href="/auth/login" class="btn-1">
+                        Login</i>
                       </a>
                     </div>
                   </div>
@@ -133,49 +134,13 @@
   </section>
 
   <!-- end about section -->
-  <!-- info section -->
-  <section class="info_section ">
-    <div class="container">
-      <div class="info_container">
-        <div class="info_social">
-          <div class="d-flex justify-content-center">
-            <h4 class="">
-              Follow on
-            </h4>
-          </div>
-          <div class="social_box">
-            <a href="">
-              <img src="images/fb.png" alt="">
-            </a>
-            <a href="">
-              <img src="images/twitter.png" alt="">
-            </a>
-            <a href="">
-              <img src="images/instagram.png" alt="">
-            </a>
-            <a href="">
-              <img src="images/linkedin.png" alt="">
-            </a>
-            <a href="">
-              <img src="images/dribble.png" alt="">
-            </a>
-            <a href="">
-              <img src="images/pinterest.png" alt="">
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- end info_section -->
 
   <!-- footer section -->
   <section class="container-fluid footer_section">
     <div class="container">
       <p>
-        &copy; 2019 All Rights Reserved By
-        <a href="https://html.design/">Free Html Templates</a>
+        &copy; {{date('Y')}} All Rights Reserved By SIGNaja.com
       </p>
     </div>
   </section>

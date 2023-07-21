@@ -29,7 +29,7 @@ class SubmitEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('SUBMIT')
+        return $this->subject('SUBMISSION')
                     ->view('emails.submit');
     }
 }

@@ -58,8 +58,8 @@ class SubmissionsController extends Controller
         $data->save();
         $docs->save();
        
-        $data->signee = User::where('unique_id', $data->signe_id)->first();
-        \Mail::to($data->signee->email)->send(new \App\Mail\SubmitEMail($data));
+        $data->signee = User::where('unique_id', $data->signee_id)->first();
+        \Mail::to($data->signee->email)->send(new \App\Mail\SubmitEmail($data));
        
         return redirect('/signee/submissions')->with('success', 'Pengajuan Berkas Berhasil');
     }
@@ -227,7 +227,7 @@ class SubmissionsController extends Controller
     public function subEmail($sub_id){
         $data = SubmissionsModel::where('id', $sub_id)->first();
         
-        \Mail::to($data->signee->email)->send(new \App\Mail\SubmitEMail($data));
+        \Mail::to($data->signee->email)->send(new \App\Mail\SubmitEmail($data));
        
         dd("Email sudah terkirim.");
         // return view('emails.reject', compact('data'));
