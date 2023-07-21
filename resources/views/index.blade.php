@@ -8,7 +8,7 @@
   <!-- Mobile Metas -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <link rel="shortcut icon" href="/uliya-html/images/logo-1.png" type="image/x-icon">
-  <title>E-Signature - Beranda</title>
+  <title>SignAja - Beranda</title>
 
 
   <!-- bootstrap core css -->
@@ -70,11 +70,11 @@
                 <div class="col-md-5 offset-md-1 ">
                   <div class="detail_box">
                     <h1>
-                      E-Signature <br>
+                      SignnAja <br>
                       
                     </h1>
                     <p>
-                        Platform berbasi website penyedia E-Signature untuk membuat dokumen anda lebih aman.  
+                        Platform berbasi website penyedia Tanda Tangan Digital untuk membuat dokumen anda lebih aman.  
                     </p>
                     <div class="btn-box">
                       <a href="" class="btn-1">
@@ -107,9 +107,9 @@
           Cek Dokumen
         </h2>
       </div>   
-      <div class="fl scanner" id="scanner">
+      <div class="fl scanner" id="scanner" >
         <center> 
-          <div id="reader" style="width: 300px;"></div>
+          <div id="reader" style="width: 300px;" ></div>
           <div id="verifiedImg" style="display:none">
             <img src="{{asset('/uliya-html/images/verified.png')}}" alt="" style="width:300px" >    
           </div>
@@ -117,11 +117,14 @@
       </div>
       <input type="hidden" placeholder="ID Partner" name="idPartner" id="idPartner" value="" required> 
       <div class="box">
+        <div id="dataDetail">
+
+        </div>
         <div class="detail-box">
           <div>
-            <a id="scanBtn" onClick="return btn()">
-              Scan Dokumen
-            </a>
+            <button id="scanBtn" style="display: inline-block; background-color: blue; color: white; padding: 10px 20px; border: none; cursor: pointer;">
+            Scan Dokumen
+            </button>
           </div>
         </div>
       </div>
@@ -187,7 +190,7 @@
   const readerDiv = document.getElementById("reader");
   const img = document.getElementById("verifiedImg");
   const btn = document.getElementById("scanBtn");
-      
+  
   const formatsToSupport = [
       Html5QrcodeSupportedFormats.QR_CODE
    ];
@@ -200,10 +203,25 @@
       readerDiv.style.display = "none";
       img.style.display = "block";
 
+
     };
+  
    const config = { fps: 10, qrbox: { width: 200, height: 200, formatsToSupport: formatsToSupport} };
-   html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
-</script>
+   
+   btn.addEventListener('click', () => {
+        // Toggle the display property of the div
+        if (readerDiv.style.display === 'none') {
+            readerDiv.style.display = 'block';
+            html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
+
+        } else {
+            readerDiv.style.display = 'none';
+        }
+    });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </body>
 
 </html>

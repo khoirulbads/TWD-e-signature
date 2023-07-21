@@ -57,7 +57,10 @@ class SubmissionsController extends Controller
 
         $data->save();
         $docs->save();
-
+       
+        $data->signee = User::where('unique_id', $data->signe_id)->first();
+        \Mail::to($data->signee->email)->send(new \App\Mail\SubmitEMail($data));
+       
         return redirect('/signee/submissions')->with('success', 'Pengajuan Berkas Berhasil');
     }
 
@@ -142,7 +145,9 @@ class SubmissionsController extends Controller
 
         $data->save();
         $doc->save();
-
+        
+        \Mail::to($data->signee->email)->send(new \App\Mail\RejectEMail($data));
+       
         return redirect('/signer/submissions/'.$submission_id)->with('danger', 'Pengajuan ditolak!!');    
     }
     public function approve($submission_id, Request $request){
@@ -179,7 +184,7 @@ class SubmissionsController extends Controller
         $result->saveFiles(public_path().'/assets/docs/'.$doc->id);
        
         $countFiles = count(File::files(public_path('assets/docs/'.$doc->id)));
-        $data->qrcode = base64_encode(QrCode::format('svg')->size(50)->errorCorrection('H')->generate($docs->unique));
+        $data->qrcode = base64_encode(QrCode::format('svg')->size(80)->errorCorrection('H')->generate($docs->unique));
         $data->old_name = $doc->file_name;
         $data->count = $countFiles;
         $data->folder = $doc->id;
@@ -187,6 +192,9 @@ class SubmissionsController extends Controller
         $data->is_signature = $request->is_signature;
         PDF::loadView('/Dashboard/docs', compact('data'))->save('assets/docs/'.$data->id.'-signed.pdf');
         
+        $data->approved = $docs;
+        \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEMail($data));
+       
         return redirect('/signer/submissions/'.$submission_id)->with('success', 'Pengajuan telah disetujui');
     }
 
@@ -243,9 +251,23 @@ class SubmissionsController extends Controller
         
         \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEMail($data));
        
-        dd("Email sudah terkirim.");
+        // dd("Email sudah terkirim.");
     
-        // return view('emails.approve', compact('data'));
+        return view('emails.approve', compact('data'));
         
     }
+    
+    public function checkDoc($unique)
+    {
+        // Check if the data exists based on $qrData
+        $data = DocumentsModel::where('unique', $unique)
+            ->where('status',5)->first();
+    
+        if ($data) {
+            return response()->json(['exists' => true, 'data' => $data]);
+        } else {
+            return response()->json(['exists' => false]);
+        }
+    }
+    
 }
