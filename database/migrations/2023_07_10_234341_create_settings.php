@@ -20,6 +20,7 @@ class CreateSettings extends Migration
             $table->text('signature')->nullable();
             $table->text('department')->nullable();
             $table->text('paraf')->nullable();
+            $table->text('legal_email')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

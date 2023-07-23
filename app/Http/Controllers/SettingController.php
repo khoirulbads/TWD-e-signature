@@ -41,6 +41,7 @@ class SettingController extends Controller
             $data->signer_name = $request->signer_name;
             $data->location = $request->location;
             $data->department = $request->department;
+            $data->legal_email = $request->legal_email;
         }
 
         $data->save();

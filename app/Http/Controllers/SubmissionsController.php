@@ -194,6 +194,8 @@ class SubmissionsController extends Controller
         
         $data->approved = $docs;
         \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEmail($data));
+        \Mail::to(Auth::user()->email)->send(new \App\Mail\ApproveSalinanEmail($data));
+        \Mail::to(SettingModel::select('legal_email')->first())->send(new \App\Mail\ApproveSalinanEmail($data));
        
         return redirect('/signer/submissions/'.$submission_id)->with('success', 'Pengajuan telah disetujui');
     }
@@ -249,11 +251,11 @@ class SubmissionsController extends Controller
         $data = SubmissionsModel::where('id', $sub_id)->first();
         $data->approved = DocumentsModel::where('submission_id', $sub_id)->where('status', 5)->first();
         
-        \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEmail($data));
+        // \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEmail($data));
        
         // dd("Email sudah terkirim.");
     
-        return view('emails.approve', compact('data'));
+        return view('emails.approve-salinan', compact('data'));
         
     }
     
