@@ -59,7 +59,9 @@ class SubmissionsController extends Controller
         $docs->save();
        
         $data->signee = User::where('unique_id', $data->signee_id)->first();
+
         \Mail::to($data->signee->email)->send(new \App\Mail\SubmitEmail($data));
+        \Mail::to(User::select('email')->where('role',2)->first()->email)->send(new \App\Mail\SubmitSignerEmail($data));
        
         return redirect('/signee/submissions')->with('success', 'Pengajuan Berkas Berhasil');
     }
@@ -111,7 +113,9 @@ class SubmissionsController extends Controller
             $docs->save();
         }
         $data->save();
-
+        
+        \Mail::to(User::select('email')->where('role',2)->first()->email)->send(new \App\Mail\ReuploadEmail($data));
+       
         return redirect('/signee/submissions/'.$id)->with('success', 'Berhasil upload berkas terbaru');
     
     }
