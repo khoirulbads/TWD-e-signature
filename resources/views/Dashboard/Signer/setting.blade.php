@@ -149,7 +149,7 @@
                     </div>
 
                     <div class="row mb-3">
-                      <label for="Job" class="col-md-4 col-lg-3 col-form-label">Email Instansi</label>
+                      <label for="Job" class="col-md-4 col-lg-3 col-form-label">Email Law Firm</label>
                       <div class="col-md-8 col-lg-9">
                       <input name="legal_email" type="text" class="form-control" id="company" placeholder="lawfirm@gmail.com"
                         @if($data && $data->legal_email)

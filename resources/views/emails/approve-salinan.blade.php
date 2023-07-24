@@ -4,7 +4,7 @@
 <table width="100%">
     <tbody>
         <tr>
-            <td style="font-size:14px;color:#333;font-weight:normal;padding-top:0px;padding-bottom:20px;text-align:left;padding-left:10px"> Pengajuan berkas yang diajukan oleh <b>{{$data->signee->name}}</b> pada {{$data->created_at}} berjudul <b>{{$data->title}}</b> telah <b style="color:green;">DISETUJUI</b>, silakan masuk menggunakan akun anda atau unduh berkas melalui link di bawah ini.  </td>
+            <td style="font-size:14px;color:#333;font-weight:normal;padding-top:0px;padding-bottom:20px;text-align:left;padding-left:10px"> Pengajuan berkas yang diajukan oleh <b>{{$data->signee->name}}</b> pada {{$data->created_at}} WIB berjudul <b>{{$data->title}}</b>, telah <b style="color:green;">DISETUJUI</b>, silahkan unduh berkas melalui link di bawah ini.  </td>
         </tr>
         <tr>
             <td style="font-size:14px;color:#333;font-weight:normal;padding-top:0px;padding-bottom:20px;text-align:left;padding-left:10px"> TERIMA KASIH </td>

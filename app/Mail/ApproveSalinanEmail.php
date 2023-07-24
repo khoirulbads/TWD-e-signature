@@ -29,7 +29,7 @@ class ApproveSalinanEmail extends Mailable
      */
     public function build()
     {   
-        return $this->subject('[DISETUJUI] - '.$this->data->title)
+        return $this->subject('[SALINAN SIGNAJA.COM - DISETUJUI] - '.$this->data->title)
                     ->view('emails.approve-salinan');
     }
 }

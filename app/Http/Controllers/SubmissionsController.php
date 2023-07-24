@@ -195,7 +195,7 @@ class SubmissionsController extends Controller
         $data->approved = $docs;
         \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEmail($data));
         \Mail::to(Auth::user()->email)->send(new \App\Mail\ApproveSalinanEmail($data));
-        \Mail::to(SettingModel::select('legal_email')->first())->send(new \App\Mail\ApproveSalinanEmail($data));
+        \Mail::to(SettingModel::select('legal_email')->first()->legal_email)->send(new \App\Mail\ApproveSalinanEmail($data));
        
         return redirect('/signer/submissions/'.$submission_id)->with('success', 'Pengajuan telah disetujui');
     }
