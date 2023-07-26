@@ -202,6 +202,8 @@
   <script src="{{asset('/NiceAdmin/assets/vendor/tinymce/tinymce.min.js')}}"></script>
   <script src="{{asset('/NiceAdmin/assets/vendor/php-email-form/validate.js')}}"></script>
   <script src="{{asset('/NiceAdmin/assets/js/main.js')}}"></script>
+
+  @stack('js')
   <!-- Template Main JS File -->
   <script type="text/javascript">
 

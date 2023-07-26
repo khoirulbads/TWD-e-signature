@@ -276,10 +276,10 @@
                       <h5 class="card-title">Setujui Dokumen</h5>
                       
                       <h5>Apakah anda ingin menyertakan tanda tangan?</h5>
-                      <a href="/signer/submissions/approve/{{$data->id}}?is_signature=yes" class="btn btn-success" >
+                      <a href="#" class="btn btn-success" id="yesBtn" style="pointer-events:none;">
                             <i class="bi bi-check"></i>Ya, sertakan.
                       </a>
-                      <a href="/signer/submissions/approve/{{$data->id}}?is_signature=no" class="btn btn-danger" >
+                      <a href="#" class="btn btn-danger" id="noBtn">
                             <i class="bi bi-x"></i>Tidak, paraf saja.
                       </a>
 
@@ -298,7 +298,39 @@
       </div>
     </section>
 
-    
-
   </main><!-- End #main -->
 @stop
+
+
+@push('js')
+     
+<script>
+  $(document).ready(function() {
+    
+    var yes = $("#yesBtn");
+    var no = $("#noBtn");
+    var Data =  @json($data);
+    
+    yes.click(function(e) {
+      e.preventDefault(); 
+      e.stopPropagation();
+      
+      yes.off("click");
+      no.off("click"); 
+
+      window.location.href = "/signer/submissions/approve/"+Data.id+"?is_signature=yes"; 
+      
+    });
+    no.click(function(e) {
+      e.preventDefault(); 
+      e.stopPropagation();
+      no.text("Loading..");
+      yes.off("click");
+      no.off("click"); 
+      window.location.href = "/signer/submissions/approve/"+Data.id+"?is_signature=no"; 
+      
+    });
+  });
+  </script>
+   
+@endpush

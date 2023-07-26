@@ -128,7 +128,7 @@
               <h5 class="card-title">Tambah Pengajuan</h5>
 
               <!-- Floating Labels Form -->
-              <form class="row g-3" id="submitForm" method="POST" action="/signee/submissions" enctype="multipart/form-data" onsubmit="disableSubmitButton();">
+              <form class="row g-3" id="submitForm" method="POST" action="/signee/submissions" enctype="multipart/form-data">
               {!! csrf_field() !!}
                 <div class="col-md-12">
                   <div class="form-floating">
@@ -150,7 +150,7 @@
                   </div>
                 </div>
                 <div>
-                  <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+                  <button type="submit" class="btn btn-primary" onclick="this.innerHTML='Submiting...';this.disabled=true;this.form.submit();">Save</button>
                   <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
               </form><!-- End floating Labels Form -->
@@ -192,7 +192,7 @@
                   </div>
                 </div>
                 <div>
-                  <button type="submit" class="btn btn-primary" >Save</button>
+                  <button type="submit" class="btn btn-primary submitButton" onclick="this.innerHTML='Submiting...';this.disabled=true;this.form.submit();">Save</button>
                   <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
               </form><!-- End floating Labels Form -->
@@ -208,15 +208,13 @@
 <!-- End Modal -->
  <!-- JavaScript code -->
 <script>
-  // Fungsi untuk menonaktifkan tombol submit sebelum pengiriman formulir
+
   function disableSubmitButton() {
-    var submitButton = document.getElementById("submitButton");
+    var submitButton = document.getElementsByClassName("submitButton");
     submitButton.disabled = true;
 
-    // Jika Anda ingin mengaktifkan tombol kembali setelah tindakan selesai,
-    // Anda dapat menambahkan penundaan menggunakan setTimeout, seperti contoh di bawah ini:
     setTimeout(function() {
-      submitButton.disabled = false; // Mengaktifkan tombol setelah 2 detik (2000 milidetik)
+      submitButton.disabled = false;
     }, 10000);
   }
 </script>

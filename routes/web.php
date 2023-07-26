@@ -20,6 +20,7 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::middleware('guest')->group(function () {
 Route::get('/login',
     ['as' => 'login',
      'uses' =>  function () {
@@ -28,10 +29,12 @@ Route::get('/login',
     ]);
 
 Route::get('/auth/login', [AuthController::class, 'login']);
-Route::get('/auth/register', [AuthController::class, 'register']);
+// Route::get('/auth/register', [AuthController::class, 'register']);
 
-Route::post('/auth/register', [AuthController::class, 'registerAction']);
+// Route::post('/auth/register', [AuthController::class, 'registerAction']);
 Route::post('/auth/login', [AuthController::class, 'loginAction']);
+
+});
 Route::post('/docs', [DashboardController::class, 'docs']);
 Route::get('/subdocs', [DashboardController::class, 'subDocs']);
 
