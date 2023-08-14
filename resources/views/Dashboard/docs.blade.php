@@ -15,8 +15,12 @@
     <img src="assets/docs/{{$pdfData->folder}}/{{$fsub}}.png" style="width:100%">
     @endif
     @if($i > 1)
-    <img src="assets/docs/{{$pdfData->folder}}/{{$fsub}}-{{$i}}.png" style="width:100%">
-    @endif
+      @if($i == $pdfData->count && $pdfData->is_signature == 'yes')
+          <img src="assets/docs/{{$pdfData->folder}}/signature.png" style="width:100%">
+      @else
+          <img src="assets/docs/{{$pdfData->folder}}/{{$fsub}}-{{$i}}.png" style="width:100%">
+      @endif
+      @endif
     <br>
     <!-- <hr style="bottom:180px; width:200%"></hr> -->
     {{-- <img src="data:image/png;base64, {!! $pdfData->qrcode !!}" style="position:absolute; bottom:8px"> --}}
@@ -24,7 +28,7 @@
     <img src="{{$pdfData->setting->paraf}}" style="width:140px;position:absolute;">
     <p style="position:absolute; bottom:-25px; font-size:10px">{{$docTime .' WIB'}}</p>
     {{-- <p style="position:absolute; bottom:-25px; font-size:10px">Check URL: https://signaja.com</p> --}}
-    @if($i == $pdfData->count && $pdfData->is_signature == "yes")
+    <!-- @if($i == $pdfData->count && $pdfData->is_signature == "yes")
     <p style="page-break-after: always;"></p>
     <br>
     <p>Dokumen dengan judul <span>{{$pdfData->title}}</span> yang berjumlah {{$pdfData->count}} halaman yang diupload oleh: <br />
@@ -41,7 +45,7 @@
     {{-- <img src="data:image/png;base64, {!! $pdfData->qrcode !!}" style="position:absolute; bottom:8px">
     <p style="position:absolute; bottom:-25px; font-size:10px">Check URL: https://signaja.com</p> --}}
     <p style="position:absolute; bottom:-25px; font-size:10px">{{$docTime .' WIB' }}</p>
-    @endif
+    @endif -->
     @endfor
     
     </body>

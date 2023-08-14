@@ -60,8 +60,8 @@ class SubmissionsController extends Controller
        
         $data->signee = User::where('unique_id', $data->signee_id)->first();
 
-        \Mail::to($data->signee->email)->send(new \App\Mail\SubmitEmail($data));
-        \Mail::to(User::select('email')->where('role', 2)->first()->email)->send(new \App\Mail\SubmitSignerEmail($data));
+        // \Mail::to($data->signee->email)->send(new \App\Mail\SubmitEmail($data));
+        // \Mail::to(User::select('email')->where('role', 2)->first()->email)->send(new \App\Mail\SubmitSignerEmail($data));
        
         return redirect('/signee/submissions')->with('success', 'Pengajuan Berkas Berhasil');
     }
@@ -156,6 +156,9 @@ class SubmissionsController extends Controller
     }
     public function approve($submission_id, Request $request){
         
+        if ($request->is_signature == 'yes') {
+            return redirect('/signer/submissions/process/'.$submission_id);
+        }
         $data = SubmissionsModel::where('id', $submission_id)->first();
         $doc = DocumentsModel::where('submission_id', $submission_id)
             ->where('status', 1)
@@ -206,9 +209,91 @@ class SubmissionsController extends Controller
         $doc->save();
        
         $data->approved = $docs;
-        \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEmail($data));
-        \Mail::to(Auth::user()->email)->send(new \App\Mail\ApproveSalinanEmail($data));
-        \Mail::to(SettingModel::select('legal_email')->first()->legal_email)->send(new \App\Mail\ApproveSalinanEmail($data));
+        // \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEmail($data));
+        // \Mail::to(Auth::user()->email)->send(new \App\Mail\ApproveSalinanEmail($data));
+        // \Mail::to(SettingModel::select('legal_email')->first()->legal_email)->send(new \App\Mail\ApproveSalinanEmail($data));
+
+        return redirect('/signer/submissions/'.$submission_id)->with('success', 'Pengajuan telah disetujui');
+    }
+
+    public function process($submission_id){
+        $data = SubmissionsModel::where('id', $submission_id)->first();
+        $doc = DocumentsModel::where('submission_id', $submission_id)
+            ->where('status', 1)
+            ->latest()->first();
+        // dd($doc);
+
+        $path = public_path().'/assets/docs/'.$doc->id;
+
+        if (!File::exists($path)) {
+            File::makeDirectory($path, $mode = 0777, true, true);
+        
+            ConvertApi::setApiSecret(config('app.convert_api_secret'));
+            ConvertApi::$connectTimeout = 10;
+            
+            try {
+                $result = ConvertApi::convert('png', ['File' => public_path('/'.$doc->file_name)], 'pdf');
+                $result->saveFiles(public_path().'/assets/docs/'.$doc->id);
+            } catch (\ConvertApi\Error\Api $error) {
+                echo "Got API error code: " . $error->getCode() . "\n";
+                echo $error->getMessage();
+                echo "<br /><a href='/signer/submissions?q_status=1'>Kembali ke awal.</a>";
+                return false;
+            }        
+        } 
+        
+        $countFiles = count(File::files(public_path('assets/docs/'.$doc->id)));
+        $pdfData = $data->replicate();
+        $pdfData->count = $countFiles;
+        $pdfData->old_name = $doc->file_name;
+        $pdfData->folder = $doc->id;
+        $pdfData->setting = SettingModel::first();
+        
+        // dd($pdfData);
+        return view('/Dashboard/Signer/process', compact('data', 'doc', 'pdfData'));
+    
+    }
+
+    public function save(Request $request, $submission_id)
+    {
+        $image = $request->file('image');
+
+        $data = SubmissionsModel::where('id', $submission_id)->first();
+        $doc = DocumentsModel::where('submission_id', $submission_id)
+            ->where('status', 1)
+            ->latest()->first();
+        
+        $image->move(public_path('/assets/docs/'.$doc->id), 'signature.png');
+
+        $docs = new DocumentsModel();
+        $docs->id = Uuid::uuid4();
+        $docs->submission_id = $data->id;
+        $docs->unique = $docs->id.Uuid::uuid4().$data->id;         
+        $docs->file_name = 'assets/docs/'.$data->id.'-signed.pdf';
+        $docs->file_mime = '.pdf';
+        $docs->file_path = $docs->file_name;
+        $docs->action_taken_at = Carbon::now(new \DateTimeZone('Asia/Jakarta'))->toDateTimeString();
+        $docs->status = 5;
+        $docs->save();
+        $docTime = $docs->action_taken_at;
+
+        $countFiles = count(File::files(public_path('assets/docs/'.$doc->id)));
+        $pdfData = $data->replicate();
+        $pdfData->count = $countFiles - 1;
+        //$pdfData->qrcode = base64_encode(QrCode::format('svg')->size(80)->errorCorrection('H')->generate($docs->unique));
+        $pdfData->old_name = $doc->file_name;
+        
+        $pdfData->folder = $doc->id;
+        $pdfData->setting = SettingModel::first();
+        $pdfData->is_signature = 'yes';
+        PDF::loadView('/Dashboard/docs', compact('pdfData', 'docTime'))->save('assets/docs/'.$data->id.'-signed.pdf');
+        
+        $data->status = 2;
+        $data->save();
+        $doc->status = 2;
+        $doc->save();
+       
+        $data->approved = $docs;
 
         return redirect('/signer/submissions/'.$submission_id)->with('success', 'Pengajuan telah disetujui');
     }

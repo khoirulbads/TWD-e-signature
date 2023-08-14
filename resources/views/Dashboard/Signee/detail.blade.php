@@ -276,7 +276,7 @@
                       <h5 class="card-title">Setujui Dokumen</h5>
                       
                       <h5>Apakah anda ingin menyertakan tanda tangan?</h5>
-                      <a href="#" class="btn btn-success" id="yesBtn" style="pointer-events:none;">
+                      <a href="#" class="btn btn-success" id="yesBtn">
                             <i class="bi bi-check"></i>Ya, sertakan.
                       </a>
                       <a href="#" class="btn btn-danger" id="noBtn">

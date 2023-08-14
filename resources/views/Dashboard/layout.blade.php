@@ -8,6 +8,7 @@
   <title>SIGNaja.com | Dashboard</title>
   <meta content="SIGNaja.com adalah sebuah platform tanda tangan dan paraf secara digital." name="description">
   <meta content="tanda tangan digital, e-sign, signaja.com" name="keywords">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Favicons -->
   <link rel="shortcut icon" href="/NiceAdmin/assets/img/logo-1.png" type="image/x-icon">

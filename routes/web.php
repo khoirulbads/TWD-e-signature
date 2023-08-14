@@ -67,6 +67,8 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/{id}', [SubmissionsController::class, 'detail']);   
             Route::post('/reject/{submission_id}', [SubmissionsController::class, 'reject']);   
             Route::get('/approve/{submission_id}', [SubmissionsController::class, 'approve']);
+            Route::get('/process/{submission_id}', [SubmissionsController::class, 'process']);
+            Route::post('/save/{submission_id}', [SubmissionsController::class, 'save']);
             
             // Route::post('/', [SubmissionsController::class, 'signeeCreate']);
             // Route::get('/delete/{id}', [SubmissionsController::class, 'signeeDelete']);   
