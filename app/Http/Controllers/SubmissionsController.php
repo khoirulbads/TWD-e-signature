@@ -19,6 +19,7 @@ use File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SubmitEmail;
+use setasign\Fpdi\Fpdi;
 
 class SubmissionsController extends Controller
 {
@@ -156,30 +157,12 @@ class SubmissionsController extends Controller
     }
     public function approve($submission_id, Request $request){
         
-        if ($request->is_signature == 'yes') {
-            return redirect('/signer/submissions/process/'.$submission_id);
-        }
         $data = SubmissionsModel::where('id', $submission_id)->first();
         $doc = DocumentsModel::where('submission_id', $submission_id)
             ->where('status', 1)
             ->latest()->first();
+        $setting = SettingModel::first();
         
-        $path = public_path().'/assets/docs/'.$doc->id;
-        File::makeDirectory($path, $mode = 0777, true, true);
-       
-        ConvertApi::setApiSecret(config('app.convert_api_secret'));
-        ConvertApi::$connectTimeout = 10;
-        
-        try {
-            $result = ConvertApi::convert('png', ['File' => public_path('/'.$doc->file_name)], 'pdf');
-            $result->saveFiles(public_path().'/assets/docs/'.$doc->id);
-        } catch (\ConvertApi\Error\Api $error) {
-            echo "Got API error code: " . $error->getCode() . "\n";
-            echo $error->getMessage();
-            echo "<br /><a href='/signer/submissions?q_status=1'>Kembali ke awal.</a>";
-            return false;
-        }
-
         $docs = new DocumentsModel();
         $docs->id = Uuid::uuid4();
         $docs->submission_id = $data->id;
@@ -190,28 +173,56 @@ class SubmissionsController extends Controller
         $docs->action_taken_at = Carbon::now(new \DateTimeZone('Asia/Jakarta'))->toDateTimeString();
         $docs->status = 5;
         $docs->save();
-        $docTime = $docs->action_taken_at;
+        // $pdfData->qrcode = base64_encode(QrCode::format('svg')->size(80)->errorCorrection('H')->generate($docs->unique));
+        
+        
+        // Path ke PDF yang ada
+        $existingPdfPath = public_path($doc->file_name);
+        
+        // Path untuk menyimpan PDF yang sudah diubah
+        $outputPdfPath = public_path('assets/docs/'.$data->id.'-signed.pdf');
 
-        $countFiles = count(File::files(public_path('assets/docs/'.$doc->id)));
-        $pdfData = $data->replicate();
-        $pdfData->count = $countFiles;
-        //$pdfData->qrcode = base64_encode(QrCode::format('svg')->size(80)->errorCorrection('H')->generate($docs->unique));
-        $pdfData->old_name = $doc->file_name;
+        // Load existing PDF dengan FPDI
+        $pdf = new Fpdi();
+        $pageCount = $pdf->setSourceFile($existingPdfPath);
+        $pageNo = $request->page;
         
-        $pdfData->folder = $doc->id;
-        $pdfData->setting = SettingModel::first();
-        $pdfData->is_signature = $request->is_signature;
-        PDF::loadView('/Dashboard/docs', compact('pdfData', 'docTime'))->save('assets/docs/'.$data->id.'-signed.pdf');
+        // Pilih halaman yang ingin diubah (misalnya halaman ke-2)
+        for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
+            $templateId = $pdf->importPage($pageNumber);
+            $pdf->AddPage();
+            $pdf->useTemplate($templateId);
+
+            if($pageNumber == $pageNo){
+                $imagePath = public_path($setting->signature);
+                $x = $request->x;
+                $y = $request->y;
+                $size = $request->size;
+                $pdf->Image($imagePath, $x, $y, $size, 0, 'PNG');        
+            }
+            
+            $pdf->SetFont('Arial', '', 8);
+            $pdf->Text(10, 290, $docs->action_taken_at.' WIB');
+
+            $parafPath = public_path($setting->paraf);
+            $pdf->Image($parafPath, 45, 283, 13, 0, 'PNG');        
+            
+        }
         
+        // Simpan PDF yang sudah diubah
+        $pdf->Output($outputPdfPath, 'F');
+
+        // return response()->download($outputPdfPath);
+    
         $data->status = 2;
         $data->save();
         $doc->status = 2;
         $doc->save();
        
         $data->approved = $docs;
-        // \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEmail($data));
-        // \Mail::to(Auth::user()->email)->send(new \App\Mail\ApproveSalinanEmail($data));
-        // \Mail::to(SettingModel::select('legal_email')->first()->legal_email)->send(new \App\Mail\ApproveSalinanEmail($data));
+        \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEmail($data));
+        \Mail::to(Auth::user()->email)->send(new \App\Mail\ApproveSalinanEmail($data));
+        \Mail::to(SettingModel::select('legal_email')->first()->legal_email)->send(new \App\Mail\ApproveSalinanEmail($data));
 
         return redirect('/signer/submissions/'.$submission_id)->with('success', 'Pengajuan telah disetujui');
     }
@@ -256,15 +267,12 @@ class SubmissionsController extends Controller
 
     public function save(Request $request, $submission_id)
     {
-        $image = $request->file('image');
-
         $data = SubmissionsModel::where('id', $submission_id)->first();
         $doc = DocumentsModel::where('submission_id', $submission_id)
             ->where('status', 1)
             ->latest()->first();
+        $setting = SettingModel::first();
         
-        $image->move(public_path('/assets/docs/'.$doc->id), 'signature.png');
-
         $docs = new DocumentsModel();
         $docs->id = Uuid::uuid4();
         $docs->submission_id = $data->id;
@@ -275,27 +283,57 @@ class SubmissionsController extends Controller
         $docs->action_taken_at = Carbon::now(new \DateTimeZone('Asia/Jakarta'))->toDateTimeString();
         $docs->status = 5;
         $docs->save();
-        $docTime = $docs->action_taken_at;
+        // $pdfData->qrcode = base64_encode(QrCode::format('svg')->size(80)->errorCorrection('H')->generate($docs->unique));
+        
+        
+        // Path ke PDF yang ada
+        $existingPdfPath = public_path($doc->file_name);
+        
+        // Path untuk menyimpan PDF yang sudah diubah
+        $outputPdfPath = public_path('assets/docs/'.$data->id.'-signed.pdf');
 
-        $countFiles = count(File::files(public_path('assets/docs/'.$doc->id)));
-        $pdfData = $data->replicate();
-        $pdfData->count = $countFiles - 1;
-        //$pdfData->qrcode = base64_encode(QrCode::format('svg')->size(80)->errorCorrection('H')->generate($docs->unique));
-        $pdfData->old_name = $doc->file_name;
+        // Load existing PDF dengan FPDI
+        $pdf = new Fpdi();
+        $pageCount = $pdf->setSourceFile($existingPdfPath);
+        $pageNo = $request->page;
         
-        $pdfData->folder = $doc->id;
-        $pdfData->setting = SettingModel::first();
-        $pdfData->is_signature = 'yes';
-        PDF::loadView('/Dashboard/docs', compact('pdfData', 'docTime'))->save('assets/docs/'.$data->id.'-signed.pdf');
+        // Pilih halaman yang ingin diubah (misalnya halaman ke-2)
+        for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
+            $templateId = $pdf->importPage($pageNumber);
+            $pdf->AddPage();
+            $pdf->useTemplate($templateId);
+
+            if($pageNumber == $pageNo){
+                $imagePath = public_path($setting->signature);
+                $x = $request->x;
+                $y = $request->y;
+                $size = $request->size;
+                $pdf->Image($imagePath, $x, $y, $size, 0, 'PNG');        
+            }
+            
+            $pdf->SetFont('Arial', '', 8);
+            $pdf->Text(10, 290, $docs->action_taken_at.' WIB');
+
+            $parafPath = public_path($setting->paraf);
+            $pdf->Image($parafPath, 45, 283, 13, 0, 'PNG');        
+            
+        }
         
+        // Simpan PDF yang sudah diubah
+        $pdf->Output($outputPdfPath, 'F');
+
         $data->status = 2;
         $data->save();
         $doc->status = 2;
         $doc->save();
        
         $data->approved = $docs;
+        \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEmail($data));
+        \Mail::to(Auth::user()->email)->send(new \App\Mail\ApproveSalinanEmail($data));
+        \Mail::to(SettingModel::select('legal_email')->first()->legal_email)->send(new \App\Mail\ApproveSalinanEmail($data));
 
-        return redirect('/signer/submissions/'.$submission_id)->with('success', 'Pengajuan telah disetujui');
+        return response()->download($outputPdfPath);
+    
     }
 
     public function signerIndex(Request $request){

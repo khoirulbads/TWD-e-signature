@@ -54,21 +54,36 @@
                 <i class="bi bi-save"></i>
                   Simpan
               </a>
-              @endif
               <br>
+              <br>
+              @if($pdfData->count > 1)
+              <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">Pilih Halaman :</label>
+                    <div class="col-sm-2">
+                        <select class="form-select" aria-label="Default select example" id="page">
+                            @for($i = 1; $i <= $pdfData->count ; $i++)
+                                <option value="{{$i}}" @if($i == $pdfData->count) selected @endif>
+                                    {{$i}}
+                                </option>
+                            @endfor
+                        </select>
+                    </div>
+                </div>
+              @endif
+              @endif
                 <div class="col-lg-8">
                   <div class="card">
-                        <div class="image-container">
+                        <div class="image-container" style="width:210mm">
                             @if($pdfData->count == 1)
-                            <img src="/assets/docs/{{$pdfData->folder}}/{{$fsub}}.png" alt="Base Image" style="width:100%" id="baseImg">
+                            <img src="/assets/docs/{{$pdfData->folder}}/{{$fsub}}.png" alt="Base Image" style="width:210mm;" id="baseImg">
                             @endif
                             @if($pdfData->count > 1)
-                            <img src="/assets/docs/{{$pdfData->folder}}/{{$fsub}}-{{$pdfData->count}}.png" alt="Base Image" style="width:100%;" id="baseImg">
+                            <img src="/assets/docs/{{$pdfData->folder}}/{{$fsub}}-{{$pdfData->count}}.png" alt="Base Image" style="width:210mm;" id="baseImg">
                             @endif
-                            <img id="overlayImage" class="overlay-image" src="/{{$pdfData->setting->signature}}" alt="Overlay Image" style="width:80px; position: absolute;
-            top: 0;
-            left: 0;
-            pointer-events: none;">
+                            <img id="overlayImage" class="overlay-image" src="/{{$pdfData->setting->signature}}" alt="Overlay Image" style="width:100px; position: absolute;
+                                top: 210mm;
+                                left: 150mm;
+                                pointer-events: none;">
                         </div>
                     </div>
                 </div>
@@ -117,14 +132,14 @@
         const overlayImage = document.getElementById("overlayImage");
         const baseImage = document.getElementById("baseImg");
         
-        baseImage.onload = function() {
-                const imageWidth = baseImage.width;
-                imageContainer.style.width = imageWidth + "px";
-        };
+        // baseImage.onload = function() {
+        //         const imageWidth = baseImage.width;
+        //         imageContainer.style.width = imageWidth + "px";
+        // };
             overlayImage.addEventListener("dragstart", function(e) {
                 // Mengatur data untuk operasi drag
                 e.dataTransfer.setData("text/plain", "");
-                e.dataTransfer.setDragImage(overlayImage, 0, 0);
+                e.dataTransfer.setDragImage(overlayImage, 0,0 );
             });
 
             imageContainer.addEventListener("dragover", function(e) {
@@ -145,24 +160,23 @@
                 }
 
             });
+         
             saveBtn.addEventListener("click", function() {
-                // Buat elemen canvas
-                const canvas = document.createElement("canvas");
-                canvas.width = imageContainer.offsetWidth * 2;
-                canvas.height = imageContainer.offsetHeight * 2;
-                const ctx = canvas.getContext("2d");
+            // Ambil posisi overlay image dan base image
+                const overlayRect = overlayImage.getBoundingClientRect();
+                const baseRect = baseImage.getBoundingClientRect();
                 var Data =  @json($data);
-
-                // Render div menjadi gambar menggunakan html2canvas
-                html2canvas(imageContainer, {scale : 2}).then(function(canvas) {
-                    // Gambar hasil rendering ke dalam canvas
-                    ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height);
-
-                    // Simpan gambar dalam format PNG
-                    canvas.toBlob(function(blob) {
-                        const formData = new FormData();
-                        formData.append("image", blob, "div_image.png");
-
+                // Hitung perbedaan antara posisi overlay image dan garis tepi base image
+                const differenceX = overlayRect.left - baseRect.left;
+                const differenceY = overlayRect.top - baseRect.top;
+                var pageSelect = $("#page").val();
+                const formData = new FormData();
+                        formData.append("x",differenceX*(210/baseImg.width));
+                        formData.append("y",differenceY*(210/baseImg.width));
+                        formData.append("size",100*(210/baseImg.width));
+                        formData.append("page", pageSelect);
+                        console.log(differenceY*(210/baseImg.width));
+                        
                         fetch("/signer/submissions/save/"+Data.id, {
                             method: "POST",
                             body: formData,
@@ -177,13 +191,45 @@
                         .catch(error => {
                             console.error("Error:", error);
                         });
-                    }, "image/png");
-                });
+                    window.location.href = "/signer/submissions/"+Data.id;
+            });
+
+            $("#page").change(function() {
+                var pdf =  @json($pdfData);
+                var fsub =  @json($fsub);
+                console.log(baseImg.width*(210/baseImg.width));
+                var pageSelected = $(this).val();
+                if(pageSelected == 1){
+                    
+                    $("#baseImg").attr("src", "/assets/docs/"+pdf.folder+"/"+fsub+".png");
+                }else{
+                    $("#baseImg").attr("src", "/assets/docs/"+pdf.folder+"/"+fsub+"-"+pageSelected+".png");    
+                }
+                
             });
         });
 
     </script>
+    <!-- <script>
+        $(document).ready(function() {
+            
+            $("#page").change(function() {
+                var pdf =  @json($pdfData);
+                var fsub =  @json($fsub);
+                
+                var pageSelected = $(this).val();
+                if(pageSelected == 1){
+                    
+                    $("#baseImg").attr("src", "/assets/docs/"+pdf.folder+"/"+fsub+".png");
+                }else{
+                    $("#baseImg").attr("src", "/assets/docs/"+pdf.folder+"/"+fsub+"-"+pageSelected+".png");    
+                }
+                
+            });
+        });
+    </script> -->
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 @endpush

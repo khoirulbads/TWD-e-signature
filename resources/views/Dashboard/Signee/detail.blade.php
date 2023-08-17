@@ -318,7 +318,7 @@
       yes.off("click");
       no.off("click"); 
 
-      window.location.href = "/signer/submissions/approve/"+Data.id+"?is_signature=yes"; 
+      window.location.href = "/signer/submissions/process/"+Data.id+"?is_signature=yes"; 
       
     });
     no.click(function(e) {
