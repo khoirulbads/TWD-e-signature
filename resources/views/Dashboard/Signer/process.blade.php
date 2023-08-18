@@ -131,7 +131,7 @@
         const imageContainer = document.querySelector(".image-container");
         const overlayImage = document.getElementById("overlayImage");
         const baseImage = document.getElementById("baseImg");
-        
+        var pageSelected = 1;
         // baseImage.onload = function() {
         //         const imageWidth = baseImage.width;
         //         imageContainer.style.width = imageWidth + "px";
@@ -169,7 +169,8 @@
                 // Hitung perbedaan antara posisi overlay image dan garis tepi base image
                 const differenceX = overlayRect.left - baseRect.left;
                 const differenceY = overlayRect.top - baseRect.top;
-                var pageSelect = $("#page").val();
+                var pageSelect = pageSelected;
+                console.log(pageSelected+"page");
                 const formData = new FormData();
                         formData.append("x",differenceX*(210/baseImg.width));
                         formData.append("y",differenceY*(210/baseImg.width));
@@ -177,7 +178,7 @@
                         formData.append("page", pageSelect);
                         console.log(differenceY*(210/baseImg.width));
                         
-                        fetch("/signer/submissions/save/"+Data.id, {
+                        fetch("/signer/submissions/save/"+Data.id+"?is_signature=yes", {
                             method: "POST",
                             body: formData,
                             headers: {
@@ -191,14 +192,14 @@
                         .catch(error => {
                             console.error("Error:", error);
                         });
-                    window.location.href = "/signer/submissions/"+Data.id;
+                    // window.location.href = "/signer/submissions/"+Data.id;
             });
 
             $("#page").change(function() {
                 var pdf =  @json($pdfData);
                 var fsub =  @json($fsub);
-                console.log(baseImg.width*(210/baseImg.width));
-                var pageSelected = $(this).val();
+                // console.log(baseImg.width*(210/baseImg.width));
+                pageSelected = $(this).val();
                 if(pageSelected == 1){
                     
                     $("#baseImg").attr("src", "/assets/docs/"+pdf.folder+"/"+fsub+".png");

@@ -186,14 +186,14 @@ class SubmissionsController extends Controller
         $pdf = new Fpdi();
         $pageCount = $pdf->setSourceFile($existingPdfPath);
         $pageNo = $request->page;
-        
+
         // Pilih halaman yang ingin diubah (misalnya halaman ke-2)
         for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
             $templateId = $pdf->importPage($pageNumber);
             $pdf->AddPage();
             $pdf->useTemplate($templateId);
 
-            if($pageNumber == $pageNo){
+            if($pageNumber == $pageNo && $request->is_signature == 'yes'){
                 $imagePath = public_path($setting->signature);
                 $x = $request->x;
                 $y = $request->y;
@@ -219,11 +219,14 @@ class SubmissionsController extends Controller
         $doc->status = 2;
         $doc->save();
        
-        $data->approved = $docs;
+        // $data->approved = $docs;
         \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEmail($data));
         \Mail::to(Auth::user()->email)->send(new \App\Mail\ApproveSalinanEmail($data));
         \Mail::to(SettingModel::select('legal_email')->first()->legal_email)->send(new \App\Mail\ApproveSalinanEmail($data));
 
+        if ($request->is_signature == 'yes') {
+            return response('success');
+        }
         return redirect('/signer/submissions/'.$submission_id)->with('success', 'Pengajuan telah disetujui');
     }
 
