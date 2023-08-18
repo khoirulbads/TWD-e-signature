@@ -192,7 +192,7 @@
                         .catch(error => {
                             console.error("Error:", error);
                         });
-                    // window.location.href = "/signer/submissions/"+Data.id;
+                    window.location.href = "/signer/submissions/"+Data.id;
             });
 
             $("#page").change(function() {
