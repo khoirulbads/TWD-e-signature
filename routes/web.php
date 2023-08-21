@@ -29,9 +29,9 @@ Route::get('/login',
     ]);
 
 Route::get('/auth/login', [AuthController::class, 'login']);
-// Route::get('/auth/register', [AuthController::class, 'register']);
+Route::get('/auth/register', [AuthController::class, 'register']);
 
-// Route::post('/auth/register', [AuthController::class, 'registerAction']);
+Route::post('/auth/register', [AuthController::class, 'registerAction']);
 Route::post('/auth/login', [AuthController::class, 'loginAction']);
 
 });

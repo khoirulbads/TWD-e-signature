@@ -186,7 +186,7 @@ class SubmissionsController extends Controller
         $pdf = new Fpdi();
         $pageCount = $pdf->setSourceFile($existingPdfPath);
         $pageNo = $request->page;
-
+       
         // Pilih halaman yang ingin diubah (misalnya halaman ke-2)
         for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
             $templateId = $pdf->importPage($pageNumber);
@@ -202,11 +202,11 @@ class SubmissionsController extends Controller
             }
             
             $pdf->SetFont('Arial', '', 8);
-            $pdf->Text(10, 290, $docs->action_taken_at.' WIB');
-
+            $pdf->Text(10, 287, $docs->action_taken_at.' WIB');
             $parafPath = public_path($setting->paraf);
-            $pdf->Image($parafPath, 45, 283, 13, 0, 'PNG');        
-            
+            $pdf->Image($parafPath, 10, 275, 40, 0, 'PNG');        
+//             
+
         }
         
         // Simpan PDF yang sudah diubah
@@ -219,14 +219,14 @@ class SubmissionsController extends Controller
         $doc->status = 2;
         $doc->save();
        
-        // $data->approved = $docs;
+        $data->approved = $docs;
         \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEmail($data));
         \Mail::to(Auth::user()->email)->send(new \App\Mail\ApproveSalinanEmail($data));
         \Mail::to(SettingModel::select('legal_email')->first()->legal_email)->send(new \App\Mail\ApproveSalinanEmail($data));
 
-        if ($request->is_signature == 'yes') {
-            return response('success');
-        }
+        // if ($request->is_signature == 'yes') {
+        //     return response('success');
+        // }
         return redirect('/signer/submissions/'.$submission_id)->with('success', 'Pengajuan telah disetujui');
     }
 

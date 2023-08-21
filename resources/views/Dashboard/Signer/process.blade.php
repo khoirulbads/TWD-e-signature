@@ -181,18 +181,20 @@
                         fetch("/signer/submissions/save/"+Data.id+"?is_signature=yes", {
                             method: "POST",
                             body: formData,
+                            redirect:"follow",
                             headers: {
                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                             }
                         })
-                        .then(response => response.json())
-                        .then(data => {
-                            alert(data.message);
+                        .then(response => {
+                          if(response.redirected){
+                            window.location.href = response.url;
+                          }
                         })
                         .catch(error => {
                             console.error("Error:", error);
                         });
-                    window.location.href = "/signer/submissions/"+Data.id;
+                    
             });
 
             $("#page").change(function() {
