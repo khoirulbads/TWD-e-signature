@@ -80,7 +80,7 @@
                             @if($pdfData->count > 1)
                             <img src="/assets/docs/{{$pdfData->folder}}/{{$fsub}}-{{$pdfData->count}}.png" alt="Base Image" style="width:210mm;" id="baseImg">
                             @endif
-                            <img id="overlayImage" class="overlay-image" src="/{{$pdfData->setting->signature}}" alt="Overlay Image" style="width:100px; position: absolute;
+                            <img id="overlayImage" class="overlay-image" src="/{{$pdfData->setting->signature}}" alt="Overlay Image" style="width:200px; position: absolute;
                                 top: 210mm;
                                 left: 150mm;
                                 pointer-events: none;">
