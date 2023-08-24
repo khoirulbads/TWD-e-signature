@@ -174,7 +174,7 @@
                 const formData = new FormData();
                         formData.append("x",differenceX*(210/baseImg.width));
                         formData.append("y",differenceY*(210/baseImg.width));
-                        formData.append("size",100*(210/baseImg.width));
+                        formData.append("size",200*(210/baseImg.width));
                         formData.append("page", pageSelect);
                         console.log(differenceY*(210/baseImg.width));
                         
