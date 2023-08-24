@@ -56,9 +56,9 @@
               </a>
               <br>
               <br>
-              @if($pdfData->count > 1)
               <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">Pilih Halaman :</label>
+                @if($pdfData->count > 1)
+                <label class="col-sm-2 col-form-label">Pilih Halaman :</label>
                     <div class="col-sm-2">
                         <select class="form-select" aria-label="Default select example" id="page">
                             @for($i = 1; $i <= $pdfData->count ; $i++)
@@ -68,8 +68,12 @@
                             @endfor
                         </select>
                     </div>
-                </div>
-              @endif
+                @endif
+                <label class="col-sm-2 col-form-label">Ukuran TTD :</label>
+                  <div class="col-sm-2">
+                    <input type="number" class="form-control" name="size" id="size" value="100" Min="10" Max="1000">
+                  </div>                
+              </div>
               @endif
                 <div class="col-lg-8">
                   <div class="card">
@@ -80,7 +84,7 @@
                             @if($pdfData->count > 1)
                             <img src="/assets/docs/{{$pdfData->folder}}/{{$fsub}}-{{$pdfData->count}}.png" alt="Base Image" style="width:210mm;" id="baseImg">
                             @endif
-                            <img id="overlayImage" class="overlay-image" src="/{{$pdfData->setting->signature}}" alt="Overlay Image" style="width:200px; position: absolute;
+                            <img id="overlayImage" class="overlay-image" src="/{{$pdfData->setting->signature}}" alt="Overlay Image" style="width:100px; position: absolute;
                                 top: 210mm;
                                 left: 150mm;
                                 pointer-events: none;">
@@ -131,6 +135,7 @@
         const imageContainer = document.querySelector(".image-container");
         const overlayImage = document.getElementById("overlayImage");
         const baseImage = document.getElementById("baseImg");
+        const sizeInput = document.getElementById("size");
         var pageSelected = 1;
         // baseImage.onload = function() {
         //         const imageWidth = baseImage.width;
@@ -170,13 +175,13 @@
                 const differenceX = overlayRect.left - baseRect.left;
                 const differenceY = overlayRect.top - baseRect.top;
                 var pageSelect = pageSelected;
-                console.log(pageSelected+"page");
+                // console.log(pageSelected+"page");
                 const formData = new FormData();
                         formData.append("x",differenceX*(210/baseImg.width));
                         formData.append("y",differenceY*(210/baseImg.width));
-                        formData.append("size",200*(210/baseImg.width));
+                        formData.append("size", overlayImage.width*(210/baseImg.width));
                         formData.append("page", pageSelect);
-                        console.log(differenceY*(210/baseImg.width));
+                        // console.log(overlayImage.width);
                         
                         fetch("/signer/submissions/save/"+Data.id+"?is_signature=yes", {
                             method: "POST",
@@ -197,6 +202,12 @@
                     
             });
 
+            sizeInput.addEventListener('keyup', function(){
+              const newWidth = sizeInput.value;
+              overlayImage.style.width = newWidth + 'px'; 
+              // console.log(newWidth);
+            });
+        
             $("#page").change(function() {
                 var pdf =  @json($pdfData);
                 var fsub =  @json($fsub);
@@ -210,6 +221,8 @@
                 }
                 
             });
+
+
         });
 
     </script>
