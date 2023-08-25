@@ -136,7 +136,11 @@
         const overlayImage = document.getElementById("overlayImage");
         const baseImage = document.getElementById("baseImg");
         const sizeInput = document.getElementById("size");
+        var x =  @json($pdfData);
         var pageSelected = 1;
+        if(x.count > 1){
+          pageSelected = x.count;
+        }
         // baseImage.onload = function() {
         //         const imageWidth = baseImage.width;
         //         imageContainer.style.width = imageWidth + "px";
