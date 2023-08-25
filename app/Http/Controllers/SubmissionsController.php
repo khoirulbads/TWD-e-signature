@@ -331,9 +331,9 @@ class SubmissionsController extends Controller
         $doc->save();
        
         $data->approved = $docs;
-        // \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEmail($data));
-        // \Mail::to(Auth::user()->email)->send(new \App\Mail\ApproveSalinanEmail($data));
-        // \Mail::to(SettingModel::select('legal_email')->first()->legal_email)->send(new \App\Mail\ApproveSalinanEmail($data));
+        \Mail::to($data->signee->email)->send(new \App\Mail\ApproveEmail($data));
+        \Mail::to(Auth::user()->email)->send(new \App\Mail\ApproveSalinanEmail($data));
+        \Mail::to(SettingModel::select('legal_email')->first()->legal_email)->send(new \App\Mail\ApproveSalinanEmail($data));
 
         return response()->download($outputPdfPath);
     
